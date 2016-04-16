@@ -1,8 +1,14 @@
+var {getFnArgs} = require("./utils");
+
 let swapFirstTwo = fn => (e, a, ...r) => fn(a, e, ...r);
+
+function swap (fn) {
+  console.log(fn.toString(), getFnArgs(fn));
+}
 
 function chaiAssertX (_chai, utils) {
   let assert = _chai.assert;
-  let swap = {
+  let swapx = {
     fail: swapFirstTwo(assert.fail),
     isOk: assert.isOk,
     isNotOk: assert.isNotOk,
@@ -63,7 +69,7 @@ function chaiAssertX (_chai, utils) {
   // chai adds a new assert.
   Reflect.ownKeys(assert)
   .filter(key => utils.type(assert[key]) === "function")
-  .forEach(key => { _chai.assertx[key] = swap[key] });
+  .forEach(key => { _chai.assertx[key] = swap(assert[key]) });
 }
 
 module.exports = chaiAssertX;
