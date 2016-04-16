@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^2.7.0",
-    "eslint-config-tt": "^1.0.2",
+    "eslint": "^2.8.0",
+    "eslint-config-tt": "^1.1.1",
     "mocha": "^2.4.5"
   },
   "scripts": {

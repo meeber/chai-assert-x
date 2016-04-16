@@ -4,7 +4,7 @@ let swapFirstTwo = fn => (e, a, ...r) => fn(a, e, ...r);
 
 function override (key, assert) {
   switch (key) {
-    case "fail": return swapFirstTwo(assert[key]);
+  case "fail": return swapFirstTwo(assert[key]);
   }
 
   return false;
@@ -17,9 +17,9 @@ function chaiAssertX (_chai, utils) {
 
   Reflect.ownKeys(assert)
   .filter(key => utils.type(assert[key]) === "function")
-  .forEach(key => {
-    _chai.assertx[key] = override(key, assert) || createFnWrapper(assert[key]);
-  });
+  .forEach(key =>
+    _chai.assertx[key] = override(key, assert) || createFnWrapper(assert[key])
+  );
 }
 
 module.exports = chaiAssertX;
