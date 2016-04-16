@@ -4,8 +4,8 @@ let swapFirstTwo = fn => (e, a, ...r) => fn(a, e, ...r);
 
 function override (key, assert) {
   switch (key) {
-  case "fail": return swapFirstTwo(assert[key]);
-  case "operator": return assert[key];
+    case "fail": return swapFirstTwo(assert[key]);
+    case "operator": return assert[key];
   }
 
   return;
