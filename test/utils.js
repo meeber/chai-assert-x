@@ -17,7 +17,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has 2 args and last isn't 'msg', should return a fn wrapper that"
-  + "swaps args", function () {
+  + " swaps args", function () {
     function pets (cat, dog) { return [cat, dog] }
 
     let wrapper = createFnWrapper(pets);
@@ -26,7 +26,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has more than 2 args and last is 'msg', should return a fn wrapper"
-  + "that swaps first arg to second-to-last", function () {
+  + " that swaps first arg to second-to-last", function () {
     function pets (cat, dog, msg) { return [cat, dog, msg] }
 
     let wrapper = createFnWrapper(pets);
@@ -35,7 +35,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has more than 2 args and last isn't 'msg', should return a fn wrapper"
-  + "that swaps first arg to last", function () {
+  + " that swaps first arg to last", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
     let wrp = createFnWrapper(pets);
@@ -97,14 +97,14 @@ describe(".swapArgs", function () {
   });
 
   it("if has more than 2 args and last is 'msg', should swap first arg to"
-  + "second-to-last", function () {
+  + " second-to-last", function () {
     function pets (cat, dog, msg) { return [cat, dog, msg] }
 
     expect(swapArgs(getArgOrder(pets))).to.deep.equal(["dog", "cat", "msg"]);
   });
 
   it("if has more than 2 args and last isn't 'msg', should swap first arg to"
-  + "last", function () {
+  + " last", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
     expect(swapArgs(getArgOrder(pets))).to.deep.equal(["dog", "pig", "cat"]);
