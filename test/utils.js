@@ -1,5 +1,5 @@
 let chai = require("chai");
-let {createFnWrapper, getArgOrder, swapArgs} = require("../src/utils");
+let {createFnWrapper, getArgOrder, getNewActualIndex} = require("../src/utils");
 
 let expect = chai.expect;
 
@@ -17,7 +17,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has 2 args and last isn't 'msg', should return a fn wrapper that"
-  + " swaps args", function () {
+  + " expects 'actual' to be the second arg", function () {
     function pets (cat, dog) { return [cat, dog] }
 
     let wrapper = createFnWrapper(pets);
@@ -26,7 +26,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has more than 2 args and last is 'msg', should return a fn wrapper"
-  + " that swaps first arg to second-to-last", function () {
+  + " that expects 'actual' to be the second-to-last arg", function () {
     function pets (cat, dog, msg) { return [cat, dog, msg] }
 
     let wrapper = createFnWrapper(pets);
@@ -35,12 +35,27 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has more than 2 args and last isn't 'msg', should return a fn wrapper"
-  + " that swaps first arg to last", function () {
+  + " that expects 'actual' to be the last arg", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
     let wrp = createFnWrapper(pets);
 
     expect(wrp("woof", "oink", "meow")).to.deep.equal(["meow", "woof", "oink"]);
+  });
+
+  it("if fn is named 'fail', should return a fn wrapper that expects 'actual'"
+  + " to be the second arg", function () {
+    function pets (cat, dog, pig) { return [cat, dog, pig] }
+
+    let wrp = createFnWrapper(pets, "fail");
+
+    expect(wrp("woof", "meow", "oink")).to.deep.equal(["meow", "woof", "oink"]);
+  });
+
+  it("if fn is named 'operator', should return same fn ref", function () {
+    function pets (cat, dog, pig) { return [cat, dog, pig] }
+
+    expect(createFnWrapper(pets, "operator")).to.equal(pets);
   });
 });
 
@@ -66,57 +81,50 @@ describe(".getArgOrder", function () {
   });
 });
 
-describe(".swapArgs", function () {
-  it("if has less than 2 args, should return same args ref unaltered",
-  function () {
+describe(".getNewActualIndex", function () {
+  it("if has less than 2 args, should return 0", function () {
     function pets (cat) { return [cat] }
 
-    let oldArgs = getArgOrder(pets);
-    let newArgs = swapArgs(oldArgs);
-
-    expect(newArgs).to.deep.equal(["cat"]);
-    expect(newArgs).to.equal(oldArgs);
+    expect(getNewActualIndex(pets)).to.equal(0);
   });
 
-  it("if has 2 args and last is 'msg', should return same args ref unaltered",
+  it("if has 2 args and last is 'msg', should return 0",
   function () {
     function pets (cat, msg) { return [cat, msg] }
 
-    let oldArgs = getArgOrder(pets);
-    let newArgs = swapArgs(oldArgs);
-
-    expect(newArgs).to.deep.equal(["cat", "msg"]);
-    expect(newArgs).to.equal(oldArgs);
+    expect(getNewActualIndex(pets)).to.equal(0);
   });
 
-  it("if has 2 args and last isn't 'msg', should return swapped args",
+  it("if has 2 args and last isn't 'msg', should return 1",
   function () {
     function pets (cat, dog) { return [cat, dog] }
 
-    expect(swapArgs(getArgOrder(pets))).to.deep.equal(["dog", "cat"]);
+    expect(getNewActualIndex(pets)).to.equal(1);
   });
 
-  it("if has more than 2 args and last is 'msg', should swap first arg to"
-  + " second-to-last", function () {
+  it("if has more than 2 args and last is 'msg', should return 2 less than the"
+  + " number of args", function () {
     function pets (cat, dog, msg) { return [cat, dog, msg] }
 
-    expect(swapArgs(getArgOrder(pets))).to.deep.equal(["dog", "cat", "msg"]);
+    expect(getNewActualIndex(pets)).to.equal(1);
   });
 
-  it("if has more than 2 args and last isn't 'msg', should swap first arg to"
-  + " last", function () {
+  it("if has more than 2 args and last isn't 'msg', should return 1 less than"
+  + " the number of args", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
-    expect(swapArgs(getArgOrder(pets))).to.deep.equal(["dog", "pig", "cat"]);
+    expect(getNewActualIndex(pets)).to.equal(2);
   });
 
-  it("should not modify original array", function () {
-    function pets (cat, dog, msg) { return [cat, dog, msg] }
+  it("if fn is named 'fail', should return 1", function () {
+    function pets (cat, dog, pig) { return [cat, dog, pig] }
 
-    let args = getArgOrder(pets);
-    let swappedArgs = swapArgs(args);
+    expect(getNewActualIndex(pets, "fail")).to.equal(1);
+  });
 
-    expect(args).to.deep.equal(["cat", "dog", "msg"]);
-    expect(swappedArgs).to.deep.equal(["dog", "cat", "msg"]);
+  it("if fn is named 'operator', should return 0", function () {
+    function pets (cat, dog, pig) { return [cat, dog, pig] }
+
+    expect(getNewActualIndex(pets, "operator")).to.equal(0);
   });
 });
