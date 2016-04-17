@@ -1,4 +1,9 @@
-const OVERRIDE = Object.freeze({fail: 1, operator: 0});
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var OVERRIDE = Object.freeze({fail: 1, operator: 0});
 
 // If the index number of the "actual" argument needs to move from its default
 // of 0 in order to achieve an expected-first assertion syntax for the given
@@ -7,13 +12,17 @@ const OVERRIDE = Object.freeze({fail: 1, operator: 0});
 // onto the original function. Otherwise, return the original function without a
 // wrapper.
 function createFnWrapper (fn, name) {
-  let newActualIndex = getNewActualIndex(fn, name);
+  var newActualIndex = getNewActualIndex(fn, name);
 
   if (newActualIndex === 0) return fn;
 
-  return (...params) => {
+  return function () {
+    for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+      params[_key] = arguments[_key];
+    }
+
     params.unshift(params.splice(newActualIndex, 1)[0]);
-    return fn(...params);
+    return fn.apply(undefined, params);
   };
 }
 
@@ -21,11 +30,9 @@ function createFnWrapper (fn, name) {
 // order, with all white space and comments removed. This won't work with uglify
 // or arrow functions.
 function getArgOrder (fn) {
-  return fn
-  .toString()
-  .match(/function\s.*?\(([^)]*)\)/)[1]
-  .split(",")
-  .map(arg => arg.replace(/\/\*.*\*\//, "").trim());
+  return fn.toString().match(/function\s.*?\(([^)]*)\)/)[1].split(",").map(function (arg) {
+    return arg.replace(/\/\*.*\*\//, "").trim();
+  });
 }
 
 // Return the index number of where the "actual" argument should be in the given
@@ -40,12 +47,12 @@ function getArgOrder (fn) {
 function getNewActualIndex (fn, name) {
   if (name && OVERRIDE.hasOwnProperty(name)) return OVERRIDE[name];
 
-  let argOrder = getArgOrder(fn);
-  let numArgs = argOrder.length;
+  var argOrder = getArgOrder(fn);
+  var numArgs = argOrder.length;
 
-  return numArgs < 2 ? 0
-  : argOrder[numArgs - 1] === "msg" ? numArgs - 2
-  : numArgs - 1;
+  return numArgs < 2 ? 0 : argOrder[numArgs - 1] === "msg" ? numArgs - 2 : numArgs - 1;
 }
 
-export {createFnWrapper, getNewActualIndex, getArgOrder};
+exports.createFnWrapper = createFnWrapper;
+exports.getNewActualIndex = getNewActualIndex;
+exports.getArgOrder = getArgOrder;

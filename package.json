@@ -5,16 +5,12 @@
   "author": "Grant Snodgrass <meeber@gametypething.com>",
   "license": "MIT",
   "repository": "meeber/chai-assert-x",
-  "main": "main.js",
+  "main": "dst/chai-assert-x.js",
   "engines": {
-    "node": ">= 0.10.0"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.7.4",
-    "semver": "^5.1.0"
+    "node": ">=0.10.0"
   },
   "peer-dependencies": {
-    "chai": ">= 1.9.0"
+    "chai": ">=1.9.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -28,16 +24,19 @@
     "mocha": "^2.4.5"
   },
   "scripts": {
-    "build": "npm run clean && npm run build-dist && npm run build-legacy",
-    "build-dist": "BABEL_ENV=default babel -d dist/ src/",
-    "build-legacy": "BABEL_ENV=legacy babel -d dist/legacy/ src/",
-    "clean": "rm -R -f dist/ && mkdir -p dist/legacy",
+    "build": "npm run clean && npm run build-dst && npm run build-legacy",
+    "build-dst": "BABEL_ENV=default babel -d dst/ src/",
+    "build-legacy": "BABEL_ENV=legacy babel -d dst/legacy/ src/",
+    "clean": "rm -R -f dst/ && mkdir -p dst/legacy",
     "lint": "eslint --fix .",
     "postversion": "git checkout dev && git merge master && git push && git push --tags && npm publish",
     "preversion": "git checkout master && git merge dev && npm test",
     "release-major": "npm version major -m 'Finalize v%s'",
     "release-minor": "npm version minor -m 'Finalize v%s'",
     "release-patch": "npm version patch -m 'Finalize v%s'",
-    "test": "BABEL_ENV=default mocha --require babel-core/register && npm run lint"
+    "test": "npm run test-src && npm run lint",
+    "test-dst": "BABEL_ENV=default mocha --require babel-core/register --require test/bootstrap/dst test/chai-assert-x.js",
+    "test-legacy": "BABEL_ENV=legacy mocha --require babel-core/register --require test/bootstrap/legacy test/chai-assert-x.js",
+    "test-src": "BABEL_ENV=default mocha --require babel-core/register --require test/bootstrap/src"
   }
 }

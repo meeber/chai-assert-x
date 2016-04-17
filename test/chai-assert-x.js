@@ -1,11 +1,3 @@
-import chai from "chai";
-import chaiAssertX from "../src/chai-assert-x";
-
-chai.use(chaiAssertX);
-
-let assertx = chai.assertx;
-let expect = chai.expect;
-
 describe("assertx", function () {
   it(".fail", function () {
     let expected = 42;
@@ -274,7 +266,7 @@ describe("assertx", function () {
     assertx.isNotFunction(42);
 
     expect(() => assertx.isNotFunction(actual))
-    .to.throw("expected [Function] not to be a function")
+    .to.throw(/expected \[Function(: actual)*\] not to be a function/)
     .and.to.deep.include({actual});
   });
 
@@ -588,8 +580,7 @@ describe("assertx", function () {
     assertx.Throw(expectedType, "wrong cat", actual);
 
     expect(() => assertx.throws(expectedType, expectedString, actual))
-    .to.throw("expected [Function] to throw error including 'wrong dog' but got"
-      + " 'wrong cat'")
+    .to.throw(/expected \[Function(: actual)*\] to throw error including 'wrong dog' but got 'wrong cat'/)
     .and.to.deep.include({expected: expectedString, actual: "wrong cat"});
   });
 
@@ -600,8 +591,7 @@ describe("assertx", function () {
     assertx.doesNotThrow(expected, () => { throw ReferenceError() });
 
     expect(() => assertx.doesNotThrow(expected, actual))
-    .to.throw("expected [Function] to not throw 'TypeError' but 'TypeError' was"
-      + " thrown")
+    .to.throw(/expected \[Function(: actual)*\] to not throw 'TypeError' but 'TypeError' was thrown/)
     .and.to.deep.include({expected: "TypeError", actual: "TypeError"});
   });
 
@@ -726,7 +716,7 @@ describe("assertx", function () {
 
     assertx.isExtensible(actual);
 
-    Reflect.preventExtensions(actual);
+    Object.preventExtensions(actual);
 
     expect(() => assertx.isExtensible(actual))
     .to.throw("expected {} to be extensible")
@@ -737,7 +727,7 @@ describe("assertx", function () {
     let actual = {};
     let obj = {};
 
-    Reflect.preventExtensions(obj);
+    Object.preventExtensions(obj);
 
     assertx.isNotExtensible(obj);
 

@@ -1,3 +1,8 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const OVERRIDE = Object.freeze({fail: 1, operator: 0});
 
 // If the index number of the "actual" argument needs to move from its default
@@ -21,11 +26,7 @@ function createFnWrapper (fn, name) {
 // order, with all white space and comments removed. This won't work with uglify
 // or arrow functions.
 function getArgOrder (fn) {
-  return fn
-  .toString()
-  .match(/function\s.*?\(([^)]*)\)/)[1]
-  .split(",")
-  .map(arg => arg.replace(/\/\*.*\*\//, "").trim());
+  return fn.toString().match(/function\s.*?\(([^)]*)\)/)[1].split(",").map(arg => arg.replace(/\/\*.*\*\//, "").trim());
 }
 
 // Return the index number of where the "actual" argument should be in the given
@@ -43,9 +44,9 @@ function getNewActualIndex (fn, name) {
   let argOrder = getArgOrder(fn);
   let numArgs = argOrder.length;
 
-  return numArgs < 2 ? 0
-  : argOrder[numArgs - 1] === "msg" ? numArgs - 2
-  : numArgs - 1;
+  return numArgs < 2 ? 0 : argOrder[numArgs - 1] === "msg" ? numArgs - 2 : numArgs - 1;
 }
 
-export {createFnWrapper, getNewActualIndex, getArgOrder};
+exports.createFnWrapper = createFnWrapper;
+exports.getNewActualIndex = getNewActualIndex;
+exports.getArgOrder = getArgOrder;
