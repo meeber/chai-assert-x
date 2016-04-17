@@ -1,5 +1,5 @@
-let chai = require("chai");
-let chaiAssertX = require("../src/chai-assert-x");
+import chai from "chai";
+import chaiAssertX from "../src/chai-assert-x";
 
 chai.use(chaiAssertX);
 

@@ -1,4 +1,4 @@
-let {createFnWrapper} = require("./utils");
+import {createFnWrapper} from "./utils";
 
 function chaiAssertX (_chai, utils) {
   let assert = _chai.assert;
@@ -10,4 +10,4 @@ function chaiAssertX (_chai, utils) {
   .forEach(key => _chai.assertx[key] = createFnWrapper(assert[key], key));
 }
 
-module.exports = chaiAssertX;
+export default chaiAssertX;

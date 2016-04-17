@@ -48,4 +48,4 @@ function getNewActualIndex (fn, name) {
   : numArgs - 1;
 }
 
-module.exports = {createFnWrapper, getNewActualIndex, getArgOrder};
+export {createFnWrapper, getNewActualIndex, getArgOrder};

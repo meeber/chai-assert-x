@@ -1,5 +1,5 @@
-let chai = require("chai");
-let {createFnWrapper, getArgOrder, getNewActualIndex} = require("../src/utils");
+import chai from "chai";
+import {createFnWrapper, getArgOrder, getNewActualIndex} from "../src/utils";
 
 let expect = chai.expect;
 
