@@ -1,3 +1,2 @@
-dst/
-legacy.js
-test/bootstrap/
+dist/
+legacy/

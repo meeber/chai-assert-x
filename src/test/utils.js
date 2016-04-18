@@ -1,3 +1,5 @@
+let {createFnWrapper, getNewActualIndex, getArgOrder} = global.utils;
+
 describe(".createFnWrapper", function () {
   it("if has less than 2 args, should return same fn ref", function () {
     function pets (cat) { return [cat] }
