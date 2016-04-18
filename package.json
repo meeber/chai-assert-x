@@ -43,8 +43,8 @@
     "test-dist": "mocha -r dist/test/bootstrap/ dist/test/",
     "test-legacy": "mocha -r legacy/test/bootstrap/ legacy/test/",
     "test-src": "BABEL_ENV=default mocha -r babel-core/register -r src/test/bootstrap/ src/test/ && npm run lint",
-    "transpile-dist": "BABEL_ENV=default babel -s -d dist/ src/",
-    "transpile-legacy": "BABEL_ENV=legacy babel -s -d legacy/ src/",
+    "transpile-dist": "BABEL_ENV=default babel -s inline -d dist/ src/",
+    "transpile-legacy": "BABEL_ENV=legacy babel -s inline -d legacy/ src/",
     "version": "git add -A"
   }
 }
