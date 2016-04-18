@@ -1,3 +1,4 @@
+import "source-map-support/register";
 import chai from "chai";
 import chaiAssertX from "../../chai-assert-x";
 import * as utils from "../../utils";
