@@ -6,14 +6,14 @@ function buildBrowserRelease (rel) {
   var ver = keys[1];
   var shim = keys[2];
 
-  mkdir("-p", "dist/" + rel + "/src/", "dist/" + rel + "/test/");
+  mkdir("-p", "dist/" + rel + "/test/");
 
   // Release bundle
   var srcEntry = ver + (shim ? "-shim" : "") + ".js";
 
   exec("browserify -d -s chaiAssertX " + srcEntry
-  + " | exorcist dist/" + rel + "/src/chai-assert-x.js.map"
-  + " > dist/" + rel + "/src/chai-assert-x.js");
+  + " | exorcist dist/" + rel + "/chai-assert-x.js.map"
+  + " > dist/" + rel + "/chai-assert-x.js");
 
   // Test bundle
   var polyfill = shim ? " -r babel-polyfill" : "";
