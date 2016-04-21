@@ -1,4 +1,4 @@
-/* global exec */
+/* global echo exec */
 require("shelljs/global");
 
 var tests = process.argv.length > 2 ? process.argv.slice(2)
@@ -9,7 +9,9 @@ for (var i = 0; i < tests.length; i++) {
 
   switch (tests[i]) {
     case "src":
-      exec("BABEL_ENV=default mocha -c -r babel-core/register test/bootstrap/");
+      // source-map-support must come before babel-core
+      exec("BABEL_ENV=current mocha -c -r source-map-support/register"
+      + " -r babel-core/register test/bootstrap/");
       break;
     case "node-current":
       exec("mocha -c dist/node-current/test/bootstrap/");

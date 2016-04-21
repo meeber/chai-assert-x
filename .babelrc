@@ -1,6 +1,6 @@
 {
   env: {
-    default: {
+    current: {
       plugins: ["add-module-exports", "transform-es2015-modules-commonjs"]
     },
     legacy: {plugins: ["add-module-exports"], presets: ["es2015"]},

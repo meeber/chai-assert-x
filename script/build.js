@@ -1,5 +1,47 @@
-/* global exec mkdir */
+/* global cp echo exec mkdir */
 require("shelljs/global");
+
+function buildBrowserRelease (rel) {
+  var keys = rel.split("-");
+  var ver = keys[1];
+  var shim = keys[2];
+
+  mkdir("-p", "dist/" + rel + "/src/", "dist/" + rel + "/test/");
+
+  // Release bundle
+  var srcEntry = ver + (shim ? "-shim" : "") + ".js";
+
+  exec("browserify -d -s chaiAssertX " + srcEntry
+  + " | exorcist dist/" + rel + "/src/chai-assert-x.js.map"
+  + " > dist/" + rel + "/src/chai-assert-x.js");
+
+  // Test bundle
+  var polyfill = shim ? " -r babel-polyfill" : "";
+
+  exec("browserify -d" + polyfill
+  + " dist/node-" + ver + "/test/bootstrap/"
+  + " | exorcist dist/" + rel + "/test/tests.js.map"
+  + " > dist/" + rel + "/test/tests.js");
+
+  cp(
+    "node_modules/mocha/mocha.css",
+    "node_modules/mocha/mocha.js",
+    "dist/" + rel + "/test/"
+  );
+
+  cp(
+    "node_modules/mocha/lib/template.html",
+    "dist/" + rel + "/test/index.html"
+  );
+}
+
+function buildNodeRelease (rel) {
+  var keys = rel.split("-");
+  var ver = keys[1];
+
+  exec("BABEL_ENV=" + ver + " babel -s inline -d dist/" + rel + "/src/ src/");
+  exec("BABEL_ENV=" + ver + " babel -s inline -d dist/" + rel + "/test/ test/");
+}
 
 var builds = process.argv.length > 2 ? process.argv.slice(2)
 : [
@@ -17,47 +59,13 @@ for (var i = 0; i < builds.length; i++) {
 
   switch (builds[i]) {
     case "node-current":
-      exec("BABEL_ENV=default babel -s inline -d dist/node-current/src/ src/");
-      exec("BABEL_ENV=default babel -s inline -d dist/node-current/test/"
-      + " test/");
-      break;
     case "node-legacy":
-      exec("BABEL_ENV=legacy babel -s inline -d dist/node-legacy/src/ src/");
-      exec("BABEL_ENV=legacy babel -s inline -d dist/node-legacy/test/ test/");
+      buildNodeRelease(builds[i]);
       break;
     case "browser-current":
-      mkdir("-p", "dist/browser-current/src/", "dist/browser-current/test/");
-      exec("browserify -d -s chaiAssertX current.js"
-      + " | exorcist dist/browser-current/src/chai-assert-x.js.map"
-      + " > dist/browser-current/src/chai-assert-x.js");
-      exec("browserify -d -i source-map-support"
-      + " dist/node-current/test/bootstrap/"
-      + " | exorcist dist/browser-current/test/chai-assert-x.test.js.map"
-      + " > dist/browser-current/test/chai-assert-x.test.js");
-      break;
     case "browser-legacy":
-      mkdir("-p", "dist/browser-legacy/src/", "dist/browser-legacy/test/");
-      exec("browserify -d -s chaiAssertX legacy.js"
-      + " | exorcist dist/browser-legacy/src/chai-assert-x.js.map"
-      + " > dist/browser-legacy/src/chai-assert-x.js");
-      exec("browserify -d -i source-map-support"
-      + " dist/node-legacy/test/bootstrap/"
-      + " | exorcist dist/browser-legacy/test/chai-assert-x.test.js.map"
-      + " > dist/browser-legacy/test/chai-assert-x.test.js");
-      break;
     case "browser-legacy-shim":
-      mkdir(
-        "-p",
-        "dist/browser-legacy-shim/src/",
-        "dist/browser-legacy-shim/test/"
-      );
-      exec("browserify -d -s chaiAssertX legacy-shim.js"
-      + " | exorcist dist/browser-legacy-shim/src/chai-assert-x.js.map"
-      + " > dist/browser-legacy-shim/src/chai-assert-x.js");
-      exec("browserify -d -i source-map-support -r babel-polyfill"
-      + " dist/node-legacy/test/bootstrap/"
-      + " | exorcist dist/browser-legacy-shim/test/chai-assert-x.test.js.map"
-      + " > dist/browser-legacy-shim/test/chai-assert-x.test.js");
+      buildBrowserRelease(builds[i]);
       break;
     default:
       throw Error("Invalid build: " + builds[i]);
