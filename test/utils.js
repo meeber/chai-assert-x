@@ -1,4 +1,6 @@
-let {createFnWrapper, getNewActualIndex, getArgOrder} = global.utils;
+/* global expect */
+
+import {createFnWrapper, getArgOrder, getNewActualIndex} from "../src/utils";
 
 describe(".createFnWrapper", function () {
   it("if has less than 2 args, should return same fn ref", function () {

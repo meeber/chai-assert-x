@@ -1,3 +1,5 @@
-app.js
+/current.js
 /dist/
-/legacy/
+/index.js
+/legacy.js
+/legacy-shim.js

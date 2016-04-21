@@ -1,3 +1,12 @@
+/* global expect */
+
+import chai from "chai";
+import chaiAssertX from "../src/chai-assert-x";
+
+chai.use(chaiAssertX);
+
+let assertx = chai.assertx;
+
 describe("assertx", function () {
   it(".fail", function () {
     let expected = 42;
@@ -579,9 +588,11 @@ describe("assertx", function () {
     assertx.throw(expectedType, "wrong cat", actual);
     assertx.Throw(expectedType, "wrong cat", actual);
 
+    /* eslint-disable max-len */
     expect(() => assertx.throws(expectedType, expectedString, actual))
     .to.throw(/expected \[Function(: actual)*\] to throw error including 'wrong dog' but got 'wrong cat'/)
     .and.to.deep.include({expected: expectedString, actual: "wrong cat"});
+    /* eslint-enable max-len */
   });
 
   it(".doesNotThrow", function () {
@@ -590,9 +601,11 @@ describe("assertx", function () {
 
     assertx.doesNotThrow(expected, () => { throw ReferenceError() });
 
+    /* eslint-disable max-len */
     expect(() => assertx.doesNotThrow(expected, actual))
     .to.throw(/expected \[Function(: actual)*\] to not throw 'TypeError' but 'TypeError' was thrown/)
     .and.to.deep.include({expected: "TypeError", actual: "TypeError"});
+    /* eslint-enable max-len */
   });
 
   it(".operator", function () {
@@ -714,10 +727,12 @@ describe("assertx", function () {
   it(".isExtensible", function () {
     let actual = {};
 
+    // eslint-disable-next-line prefer-reflect
     assertx.isExtensible(actual);
 
-    Object.preventExtensions(actual);
+    Reflect.preventExtensions(actual);
 
+    // eslint-disable-next-line prefer-reflect
     expect(() => assertx.isExtensible(actual))
     .to.throw("expected {} to be extensible")
     .and.to.deep.include({actual});
@@ -727,7 +742,7 @@ describe("assertx", function () {
     let actual = {};
     let obj = {};
 
-    Object.preventExtensions(obj);
+    Reflect.preventExtensions(obj);
 
     assertx.isNotExtensible(obj);
 

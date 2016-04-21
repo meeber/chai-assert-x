@@ -5,7 +5,7 @@ function chaiAssertX (_chai, utils) {
 
   _chai.assertx = {};
 
-  Object.keys(assert)
+  Reflect.ownKeys(assert)
   .filter(key => utils.type(assert[key]) === "function")
   .forEach(key => _chai.assertx[key] = createFnWrapper(assert[key], key));
 }
