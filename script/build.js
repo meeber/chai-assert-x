@@ -27,7 +27,7 @@ for (var i = 0; i < builds.length; i++) {
       break;
     case "browser-current":
       mkdir("-p", "dist/browser-current/src/", "dist/browser-current/test/");
-      exec("browserify -d -i source-map-support -s chaiAssertX current.js"
+      exec("browserify -d -s chaiAssertX current.js"
       + " | exorcist dist/browser-current/src/chai-assert-x.js.map"
       + " > dist/browser-current/src/chai-assert-x.js");
       exec("browserify -d -i source-map-support"
@@ -37,7 +37,7 @@ for (var i = 0; i < builds.length; i++) {
       break;
     case "browser-legacy":
       mkdir("-p", "dist/browser-legacy/src/", "dist/browser-legacy/test/");
-      exec("browserify -d -i source-map-support -s chaiAssertX legacy.js"
+      exec("browserify -d -s chaiAssertX legacy.js"
       + " | exorcist dist/browser-legacy/src/chai-assert-x.js.map"
       + " > dist/browser-legacy/src/chai-assert-x.js");
       exec("browserify -d -i source-map-support"
@@ -51,7 +51,7 @@ for (var i = 0; i < builds.length; i++) {
         "dist/browser-legacy-shim/src/",
         "dist/browser-legacy-shim/test/"
       );
-      exec("browserify -d -i source-map-support -s chaiAssertX legacy-shim.js"
+      exec("browserify -d -s chaiAssertX legacy-shim.js"
       + " | exorcist dist/browser-legacy-shim/src/chai-assert-x.js.map"
       + " > dist/browser-legacy-shim/src/chai-assert-x.js");
       exec("browserify -d -i source-map-support -r babel-polyfill"
