@@ -715,13 +715,11 @@ describe("assertx", function () {
   });
 
   it(".ifError", function () {
-    let actual = true;
+    let actual = new Error("meow");
 
     assertx.ifError(false);
 
-    expect(() => assertx.ifError(actual))
-    .to.throw("true")
-    .and.to.equal(actual);
+    expect(() => assertx.ifError(actual)).to.throw(actual);
   });
 
   it(".isExtensible", function () {
