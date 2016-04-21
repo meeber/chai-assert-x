@@ -1,6 +1,9 @@
 /* global echo exec */
 require("shelljs/global");
 
+// Older versions of node swallow some errors if this isn't set
+config.fatal = true;
+
 var tests = process.argv.length > 2 ? process.argv.slice(2)
 : ["src", "node-current", "node-legacy", "node-legacy-shim"];
 

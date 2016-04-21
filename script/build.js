@@ -1,6 +1,9 @@
 /* global cp echo exec mkdir */
 require("shelljs/global");
 
+// Older versions of node swallow some errors if this isn't set
+config.fatal = true;
+
 function buildBrowserRelease (rel) {
   var keys = rel.split("-");
   var ver = keys[1];
