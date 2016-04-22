@@ -5,7 +5,7 @@
   "author": "Grant Snodgrass <meeber@gametypething.com>",
   "license": "MIT",
   "repository": "meeber/chai-assert-x",
-  "main": "index.js",
+  "main": "build",
   "engines": {
     "node": ">=0.10.0"
   },

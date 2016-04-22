@@ -1,4 +1,4 @@
-/* global echo exec */
+/* global config echo exec */
 require("shelljs/global");
 
 // Older versions of node swallow some errors if this isn't set
@@ -14,7 +14,7 @@ for (var i = 0; i < tests.length; i++) {
     case "src":
       // source-map-support must come before babel-core
       exec("BABEL_ENV=current mocha -c -r source-map-support/register"
-      + " -r babel-core/register test/bootstrap/");
+      + " -r babel-core/register src/test/bootstrap/");
       break;
     case "current":
     case "legacy":

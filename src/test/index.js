@@ -1,7 +1,7 @@
 /* global expect */
 
 import chai from "chai";
-import chaiAssertX from "../src/chai-assert-x";
+import chaiAssertX from "..";
 
 chai.use(chaiAssertX);
 

@@ -1,4 +1,4 @@
-/* global cp echo exec mkdir */
+/* global config cp echo exec mkdir */
 require("shelljs/global");
 
 // Older versions of node swallow some errors if this isn't set
@@ -12,7 +12,7 @@ function createBundle (bundle) {
   mkdir("-p", "bundle/" + bundle + "/test/");
 
   // Release bundle
-  exec("browserify -d -s chaiAssertX " + bundle + ".js"
+  exec("browserify -d -s chaiAssertX build/" + bundle
   + " | exorcist bundle/" + bundle + "/bundle.js.map"
   + " > bundle/" + bundle + "/bundle.js");
 

@@ -1,5 +1,3 @@
-/current.js
-/dist/
+/build
+/bundle
 /index.js
-/legacy.js
-/legacy-shim.js

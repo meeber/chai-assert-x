@@ -1,15 +1,11 @@
-/* global cp echo exec mkdir */
+/* global config echo exec */
 require("shelljs/global");
 
 // Older versions of node swallow some errors if this isn't set
 config.fatal = true;
 
 function createBuild (build) {
-  exec("BABEL_ENV=" + build + " babel -s inline -d build/" + build + "/src/"
-  + " src/");
-
-  exec("BABEL_ENV=" + build + " babel -s inline -d build/" + build + "/test/"
-  + " test/");
+  exec("BABEL_ENV=" + build + " babel -s inline -d build/" + build + "/ src/");
 }
 
 var builds = process.argv.length > 2 ? process.argv.slice(2)
