@@ -5,10 +5,10 @@ require("shelljs/global");
 config.fatal = true;
 
 var tests = process.argv.length > 2 ? process.argv.slice(2)
-: ["src", "node-current", "node-legacy", "node-legacy-shim"];
+: ["src", "current", "legacy", "legacy-shim"];
 
 for (var i = 0; i < tests.length; i++) {
-  echo("*** BEGIN " + tests[i]);
+  echo("*** BEGIN TEST " + tests[i]);
 
   switch (tests[i]) {
     case "src":
@@ -16,18 +16,16 @@ for (var i = 0; i < tests.length; i++) {
       exec("BABEL_ENV=current mocha -c -r source-map-support/register"
       + " -r babel-core/register test/bootstrap/");
       break;
-    case "node-current":
-      exec("mocha -c dist/node-current/test/bootstrap/");
+    case "current":
+    case "legacy":
+      exec("mocha -c build/" + tests[i] + "/test/bootstrap/");
       break;
-    case "node-legacy":
-      exec("mocha -c dist/node-legacy/test/bootstrap/");
-      break;
-    case "node-legacy-shim":
-      exec("mocha -c -r babel-polyfill dist/node-legacy/test/bootstrap/");
+    case "legacy-shim":
+      exec("mocha -c -r babel-polyfill build/legacy/test/bootstrap/");
       break;
     default:
       throw Error("Invalid test: " + tests[i]);
   }
 
-  echo("*** END " + tests[i]);
+  echo("*** END TEST " + tests[i]);
 }

@@ -32,6 +32,7 @@
   },
   "scripts": {
     "build": "shjs script/build.js",
+    "bundle": "shjs script/bundle.js",
     "clean": "shjs script/clean.js",
     "lint": "eslint --fix .",
     "postversion": "shjs script/postversion.js",

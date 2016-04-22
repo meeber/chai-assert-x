@@ -2,4 +2,4 @@
 
 require("babel-polyfill");
 
-module.exports = require("./dist/node-legacy/src/chai-assert-x");
+module.exports = require("./build/legacy/src/chai-assert-x");
