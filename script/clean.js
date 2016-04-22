@@ -12,10 +12,8 @@ for (var i = 0; i < targets.length; i++) {
 
   switch (targets[i]) {
     case "bundle":
-      rm("-rf", "bundle/legacy-shim");
-      // Fall through
     case "build":
-      rm("-rf", targets[i] + "/current", targets[i] + "/legacy");
+      rm("-rf", targets[i]);
       break;
     default:
       throw Error("Invalid target: " + targets[i]);

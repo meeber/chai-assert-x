@@ -9,7 +9,7 @@ function createBuild (build) {
 }
 
 var builds = process.argv.length > 2 ? process.argv.slice(2)
-: ["current", "legacy"];
+: ["current", "legacy", "legacy-shim"];
 
 exec("npm run clean build");
 
@@ -20,6 +20,9 @@ for (var i = 0; i < builds.length; i++) {
     case "current":
     case "legacy":
       createBuild(builds[i]);
+      break;
+    case "legacy-shim":
+      cp("script/resource/legacy-shim.js", "build/");
       break;
     default:
       throw Error("Invalid build: " + builds[i]);
