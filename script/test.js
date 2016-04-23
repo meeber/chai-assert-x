@@ -7,25 +7,45 @@ config.fatal = true;
 
 var detectBuild = require("../detect-build");
 
-var fullBuild = detectBuild();
-var words = fullBuild.split("-");
-var build = words[0];
-var shim = words[1] ? " -r babel-polyfill" : "";
+function runTest (env, shim, test, target) {
+  echo("*** BEGIN TEST " + test);
 
-var tests = process.argv.length > 2 ? process.argv.slice(2)
-          : ["src", "current", "legacy", "legacy-shim"];
+  exec("BABEL_ENV=" + env
+     + " mocha -c"
+     + " " + shim
+     + " -r test/bootstrap/" + test
+     + " " + target);
 
-for (var i = 0; i < tests.length; i++) {
-  echo("*** BEGIN TEST " + tests[i]);
-
-  switch (tests[i]) {
-    case "src":
-      exec("BABEL_ENV=" + build + " mocha -c" + shim + " -r test/bootstrap/src"
-         + " test/");
-      break;
-    default:
-      throw Error("Invalid test: " + tests[i]);
-  }
-
-  echo("*** END TEST " + tests[i]);
+  echo("*** END TEST " + test);
 }
+
+function main () {
+  var build = detectBuild().split("-");
+  var env = build[0];
+  var shim = build[1] ? "-r babel-polyfill" : "";
+
+  var tests = process.argv.length > 2 ? process.argv.slice(2)
+            : ["main"];
+
+  var i, target;
+
+  for (i = 0; i < tests.length; i++) {
+    switch (tests[i]) {
+      case "current":
+      case "legacy":
+      case "legacy-shim":
+      case "main":
+        target = "test/index.js";
+        break;
+      case "src":
+        target = "test/";
+        break;
+      default:
+        throw Error("Invalid test: " + tests[i]);
+    }
+
+    runTest(env, shim, tests[i], target);
+  }
+}
+
+main();
