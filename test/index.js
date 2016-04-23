@@ -1,6 +1,6 @@
-/* global chai subject expect */
+/* global chai chaiAssertX expect */
 
-chai.use(subject);
+chai.use(chaiAssertX);
 
 let assertx = chai.assertx;
 

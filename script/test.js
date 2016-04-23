@@ -8,15 +8,11 @@ config.fatal = true;
 var detectBuild = require("../detect-build");
 
 function runTest (env, shim, test, target) {
-  echo("*** BEGIN TEST " + test);
-
   exec("BABEL_ENV=" + env
-     + " mocha -c"
-     + " " + shim
+     + " mocha -c "
+     + shim
      + " -r test/bootstrap/" + test
      + " " + target);
-
-  echo("*** END TEST " + test);
 }
 
 function main () {
@@ -24,12 +20,13 @@ function main () {
   var env = build[0];
   var shim = build[1] ? "-r babel-polyfill" : "";
 
-  var tests = process.argv.length > 2 ? process.argv.slice(2)
-            : ["main"];
+  var tests = process.argv.length > 2 ? process.argv.slice(2) : ["main"];
 
   var i, target;
 
   for (i = 0; i < tests.length; i++) {
+    echo("*** BEGIN TEST " + tests[i]);
+
     switch (tests[i]) {
       case "current":
       case "legacy":
@@ -45,6 +42,8 @@ function main () {
     }
 
     runTest(env, shim, tests[i], target);
+
+    echo("*** END TEST " + tests[i]);
   }
 }
 

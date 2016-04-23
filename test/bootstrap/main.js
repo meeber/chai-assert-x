@@ -1,2 +1,3 @@
-require("./common");
-global.subject = require("../..");
+var subject = require("./common");
+
+global[subject] = require("../..");
