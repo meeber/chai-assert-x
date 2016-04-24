@@ -5,8 +5,10 @@ require("shelljs/global");
 config.fatal = true;
 
 function createBundle (bundle) {
-  var words = bundle.split("-");
-  var build = words[0];
+  // Note: The legacy-shim and legacy bootstrap/test are identical. The shim for
+  // legacy-shim is provided via its bundle.js; it will apply to tests too.
+
+  var env = bundle.split("-")[0];
 
   mkdir("-p", "bundle/" + bundle + "/test/");
 
@@ -15,13 +17,14 @@ function createBundle (bundle) {
      + " | exorcist bundle/" + bundle + "/bundle.js.map"
      + " > bundle/" + bundle + "/bundle.js");
 
-  // Test bundle
-  exec("browserify -d test/bootstrap/bundle.js"
+  // Test bootstrap bundle
+  exec("browserify -d test/bootstrap/common.js"
      + " -o bundle/" + bundle + "/test/bootstrap.js");
 
-  exec("BABEL_ENV=" + build + " babel -s inline"
-     + " -o bundle/" + bundle + "/test/test.js"
-     + " test/index.js");
+  // Test bundle
+  exec("browserify -d build/" + env + "/test/"
+     + " | exorcist bundle/" + bundle + "/test/test.js.map"
+     + " > bundle/" + bundle + "/test/test.js");
 
   cp(
     "node_modules/mocha/mocha.css",

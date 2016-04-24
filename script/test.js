@@ -7,20 +7,32 @@ config.fatal = true;
 
 var detectBuild = require("../detect-build");
 
-function runTest (env, shim, test, target) {
+function runBuildTest (test) {
+  // Note: There isn't a legacy-shim test build. Instead, use legacy test build.
+  // The shim gets added by build/legacy-shim.js which is required by bootstrap.
+
+  var env = test.split("-")[0];
+
+  exec("mocha -c -r test/bootstrap/" + test + " build/" + env + "/test/");
+}
+
+function runSrcTest () {
+  var build = detectBuild().split("-");
+  var env = build[0];
+  var shim = build[1] === "shim" ? "-r babel-polyfill" : "";
+
   exec("BABEL_ENV=" + env
      + " mocha -c "
      + shim
-     + " -r test/bootstrap/" + test
-     + " " + target);
+     + " -r test/bootstrap/src"
+     + " test/");
+
+  exec("npm run lint");
 }
 
 function main () {
-  var build = detectBuild().split("-");
-  var env = build[0];
-  var shim = build[1] ? "-r babel-polyfill" : "";
-
-  var tests = process.argv.length > 2 ? process.argv.slice(2) : ["main"];
+  var tests = process.argv.length > 2 ? process.argv.slice(2)
+            : ["src", detectBuild()];
 
   var i;
 
@@ -31,12 +43,10 @@ function main () {
       case "current":
       case "legacy":
       case "legacy-shim":
-      case "main":
-        runTest(env, shim, tests[i], "test/index.js");
+        runBuildTest(tests[i]);
         break;
       case "src":
-        runTest(env, shim, tests[i], "test/");
-        exec("npm run lint");
+        runSrcTest();
         break;
       default:
         throw Error("Invalid test: " + tests[i]);

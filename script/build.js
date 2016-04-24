@@ -1,4 +1,4 @@
-/* global config cp echo exec */
+/* global config cp echo exec mkdir */
 require("shelljs/global");
 
 // Older versions of node swallow some errors if this isn't set
@@ -6,6 +6,11 @@ config.fatal = true;
 
 function createBuild (build) {
   exec("BABEL_ENV=" + build + " babel -s inline -d build/" + build + "/ src/");
+
+  mkdir("build/" + build + "/test");
+
+  exec("BABEL_ENV=" + build + " babel -s inline"
+     + " -o build/" + build + "/test/index.js test/index.js");
 }
 
 function main () {
