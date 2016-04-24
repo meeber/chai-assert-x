@@ -16,7 +16,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has 2 args and last isn't 'msg', should return a fn wrapper that"
-  + " expects 'actual' to be the second arg", function () {
+   + " expects 'actual' to be the second arg", function () {
     function pets (cat, dog) { return [cat, dog] }
 
     let wrapper = createFnWrapper(pets);
@@ -25,7 +25,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has more than 2 args and last is 'msg', should return a fn wrapper"
-  + " that expects 'actual' to be the second-to-last arg", function () {
+   + " that expects 'actual' to be the second-to-last arg", function () {
     function pets (cat, dog, msg) { return [cat, dog, msg] }
 
     let wrapper = createFnWrapper(pets);
@@ -34,7 +34,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if has more than 2 args and last isn't 'msg', should return a fn wrapper"
-  + " that expects 'actual' to be the last arg", function () {
+   + " that expects 'actual' to be the last arg", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
     let wrp = createFnWrapper(pets);
@@ -43,7 +43,7 @@ describe(".createFnWrapper", function () {
   });
 
   it("if fn is named 'fail', should return a fn wrapper that expects 'actual'"
-  + " to be the second arg", function () {
+   + " to be the second arg", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
     let wrp = createFnWrapper(pets, "fail");
@@ -87,29 +87,27 @@ describe(".getNewActualIndex", function () {
     expect(getNewActualIndex(pets)).to.equal(0);
   });
 
-  it("if has 2 args and last is 'msg', should return 0",
-  function () {
+  it("if has 2 args and last is 'msg', should return 0", function () {
     function pets (cat, msg) { return [cat, msg] }
 
     expect(getNewActualIndex(pets)).to.equal(0);
   });
 
-  it("if has 2 args and last isn't 'msg', should return 1",
-  function () {
+  it("if has 2 args and last isn't 'msg', should return 1", function () {
     function pets (cat, dog) { return [cat, dog] }
 
     expect(getNewActualIndex(pets)).to.equal(1);
   });
 
   it("if has more than 2 args and last is 'msg', should return 2 less than the"
-  + " number of args", function () {
+   + " number of args", function () {
     function pets (cat, dog, msg) { return [cat, dog, msg] }
 
     expect(getNewActualIndex(pets)).to.equal(1);
   });
 
   it("if has more than 2 args and last isn't 'msg', should return 1 less than"
-  + " the number of args", function () {
+   + " the number of args", function () {
     function pets (cat, dog, pig) { return [cat, dog, pig] }
 
     expect(getNewActualIndex(pets)).to.equal(2);

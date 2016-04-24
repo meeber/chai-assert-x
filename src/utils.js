@@ -22,10 +22,10 @@ function createFnWrapper (fn, name) {
 // or arrow functions.
 function getArgOrder (fn) {
   return fn
-  .toString()
-  .match(/function\s.*?\(([^)]*)\)/)[1]
-  .split(",")
-  .map(arg => arg.replace(/\/\*.*\*\//, "").trim());
+    .toString()
+    .match(/function\s.*?\(([^)]*)\)/)[1]
+    .split(",")
+    .map(arg => arg.replace(/\/\*.*\*\//, "").trim());
 }
 
 // Return the index number of where the "actual" argument should be in the given
@@ -44,8 +44,8 @@ function getNewActualIndex (fn, name) {
   let numArgs = argOrder.length;
 
   return numArgs < 2 ? 0
-  : argOrder[numArgs - 1] === "msg" ? numArgs - 2
-  : numArgs - 1;
+       : argOrder[numArgs - 1] === "msg" ? numArgs - 2
+       : numArgs - 1;
 }
 
 export {createFnWrapper, getNewActualIndex, getArgOrder};

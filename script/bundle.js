@@ -29,10 +29,7 @@ function createBundle (bundle) {
     "bundle/" + bundle + "/test/"
   );
 
-  cp(
-    "script/resource/test.html",
-    "bundle/" + bundle + "/test/index.html"
-  );
+  cp("script/resource/test.html", "bundle/" + bundle + "/test/index.html");
 }
 
 function main () {

@@ -10,8 +10,8 @@ describe("assertx", function () {
     let actual = 43;
 
     expect(() => assertx.fail(expected, actual, "failure"))
-    .to.throw("failure")
-    .and.to.deep.include({expected, actual});
+      .to.throw("failure")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".isOk", function () {
@@ -20,8 +20,8 @@ describe("assertx", function () {
     assertx.isOk(true);
 
     expect(() => assertx.isOk(actual))
-    .to.throw("expected false to be truthy")
-    .and.to.deep.include({actual});
+      .to.throw("expected false to be truthy")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotOk", function () {
@@ -30,8 +30,8 @@ describe("assertx", function () {
     assertx.isNotOk(false);
 
     expect(() => assertx.isNotOk(actual))
-    .to.throw("expected true to be falsy")
-    .and.to.deep.include({actual});
+      .to.throw("expected true to be falsy")
+      .and.to.deep.include({actual});
   });
 
   it(".equal", function () {
@@ -41,8 +41,8 @@ describe("assertx", function () {
     assertx.equal(expected, 42);
 
     expect(() => assertx.equal(expected, actual))
-    .to.throw("expected 43 to equal 42")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected 43 to equal 42")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".notEqual", function () {
@@ -52,8 +52,8 @@ describe("assertx", function () {
     assertx.notEqual(expected, 43);
 
     expect(() => assertx.notEqual(expected, actual))
-    .to.throw("expected 42 to not equal '42'")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected 42 to not equal '42'")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".strictEqual", function () {
@@ -63,8 +63,8 @@ describe("assertx", function () {
     assertx.strictEqual(expected, expected);
 
     expect(() => assertx.strictEqual(expected, actual))
-    .to.throw("expected [ 42 ] to equal [ 42 ]")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected [ 42 ] to equal [ 42 ]")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".notStrictEqual", function () {
@@ -75,8 +75,8 @@ describe("assertx", function () {
 
     // Ehh I guess expected/actual doesn't really matter on this one
     expect(() => assertx.notStrictEqual(expected, actual))
-    .to.throw("expected [ 42 ] to not equal [ 42 ]")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected [ 42 ] to not equal [ 42 ]")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".deepEqual", function () {
@@ -88,9 +88,9 @@ describe("assertx", function () {
     // assertx.deepStrictEqual(expected, expected);
 
     expect(() => assertx.deepEqual(expected, actual))
-    .to.throw("expected { cat: { sound: 'mrow' } } to deeply equal"
-      + " { cat: { sound: 'meow' } }")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected { cat: { sound: 'mrow' } } to deeply equal"
+              + " { cat: { sound: 'meow' } }")
+      .and.to.deep.include({expected, actual});
 
     // TODO: Enable upcoming chai assertion
     // expect(() => assertx.deepStrictEqual(expected, actual))
@@ -107,9 +107,9 @@ describe("assertx", function () {
 
     // Ehh I guess expected/actual doesn't really matter on this one
     expect(() => assertx.notDeepEqual(expected, actual))
-    .to.throw("expected { cat: { sound: 'meow' } } to not deeply equal"
-      + " { cat: { sound: 'meow' } }")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected { cat: { sound: 'meow' } } to not deeply equal"
+              + " { cat: { sound: 'meow' } }")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".isAbove", function () {
@@ -119,8 +119,8 @@ describe("assertx", function () {
     assertx.isAbove(above, 44);
 
     expect(() => assertx.isAbove(above, actual))
-    .to.throw("expected 42 to be above 43")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be above 43")
+      .and.to.deep.include({actual});
   });
 
   it(".isAtLeast", function () {
@@ -130,8 +130,8 @@ describe("assertx", function () {
     assertx.isAtLeast(atLeast, 44);
 
     expect(() => assertx.isAtLeast(atLeast, actual))
-    .to.throw("expected 42 to be at least 43")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be at least 43")
+      .and.to.deep.include({actual});
   });
 
   it(".isBelow", function () {
@@ -141,8 +141,8 @@ describe("assertx", function () {
     assertx.isBelow(below, 40);
 
     expect(() => assertx.isBelow(below, actual))
-    .to.throw("expected 42 to be below 41")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be below 41")
+      .and.to.deep.include({actual});
   });
 
   it(".isAtMost", function () {
@@ -152,8 +152,8 @@ describe("assertx", function () {
     assertx.isAtMost(atMost, 40);
 
     expect(() => assertx.isAtMost(atMost, actual))
-    .to.throw("expected 42 to be at most 41")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be at most 41")
+      .and.to.deep.include({actual});
   });
 
   it(".isTrue", function () {
@@ -162,8 +162,8 @@ describe("assertx", function () {
     assertx.isTrue(true);
 
     expect(() => assertx.isTrue(actual))
-    .to.throw("expected false to be true")
-    .and.to.deep.include({actual});
+      .to.throw("expected false to be true")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotTrue", function () {
@@ -172,8 +172,8 @@ describe("assertx", function () {
     assertx.isNotTrue(false);
 
     expect(() => assertx.isNotTrue(actual))
-    .to.throw("expected true to not equal true")
-    .and.to.deep.include({actual});
+      .to.throw("expected true to not equal true")
+      .and.to.deep.include({actual});
   });
 
   it(".isFalse", function () {
@@ -182,8 +182,8 @@ describe("assertx", function () {
     assertx.isFalse(false);
 
     expect(() => assertx.isFalse(actual))
-    .to.throw("expected true to be false")
-    .and.to.deep.include({actual});
+      .to.throw("expected true to be false")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotFalse", function () {
@@ -192,8 +192,8 @@ describe("assertx", function () {
     assertx.isNotFalse(true);
 
     expect(() => assertx.isNotFalse(actual))
-    .to.throw("expected false to not equal false")
-    .and.to.deep.include({actual});
+      .to.throw("expected false to not equal false")
+      .and.to.deep.include({actual});
   });
 
   it(".isNull", function () {
@@ -202,8 +202,8 @@ describe("assertx", function () {
     assertx.isNull(null);
 
     expect(() => assertx.isNull(actual))
-    .to.throw("expected 42 to equal null")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to equal null")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotNull", function () {
@@ -212,8 +212,8 @@ describe("assertx", function () {
     assertx.isNotNull(42);
 
     expect(() => assertx.isNotNull(actual))
-    .to.throw("expected null to not equal null")
-    .and.to.deep.include({actual});
+      .to.throw("expected null to not equal null")
+      .and.to.deep.include({actual});
   });
 
   it(".isNaN", function () {
@@ -222,8 +222,8 @@ describe("assertx", function () {
     assertx.isNaN(NaN);
 
     expect(() => assertx.isNaN(actual))
-    .to.throw("expected 42 to be NaN")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be NaN")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotNaN", function () {
@@ -233,7 +233,7 @@ describe("assertx", function () {
 
     // TODO: Can't deep.include to check actual cause it's NaN, find other way
     expect(() => assertx.isNotNaN(actual))
-    .to.throw("expected NaN not to be NaN");
+      .to.throw("expected NaN not to be NaN");
   });
 
   it(".isUndefined", function () {
@@ -242,8 +242,8 @@ describe("assertx", function () {
     assertx.isUndefined(undefined);
 
     expect(() => assertx.isUndefined(actual))
-    .to.throw("expected 42 to equal undefined")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to equal undefined")
+      .and.to.deep.include({actual});
   });
 
   it(".isDefined", function () {
@@ -252,8 +252,8 @@ describe("assertx", function () {
     assertx.isDefined(42);
 
     expect(() => assertx.isDefined(actual))
-    .to.throw("expected undefined to not equal undefined")
-    .and.to.deep.include({actual});
+      .to.throw("expected undefined to not equal undefined")
+      .and.to.deep.include({actual});
   });
 
   it(".isFunction", function () {
@@ -262,8 +262,8 @@ describe("assertx", function () {
     assertx.isFunction(() => {});
 
     expect(() => assertx.isFunction(actual))
-    .to.throw("expected 42 to be a function")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be a function")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotFunction", function () {
@@ -272,8 +272,8 @@ describe("assertx", function () {
     assertx.isNotFunction(42);
 
     expect(() => assertx.isNotFunction(actual))
-    .to.throw(/expected \[Function(: actual)*\] not to be a function/)
-    .and.to.deep.include({actual});
+      .to.throw(/expected \[Function(: actual)*\] not to be a function/)
+      .and.to.deep.include({actual});
   });
 
   it(".isObject", function () {
@@ -282,8 +282,8 @@ describe("assertx", function () {
     assertx.isObject({});
 
     expect(() => assertx.isObject(actual))
-    .to.throw("expected 42 to be an object")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be an object")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotObject", function () {
@@ -292,8 +292,8 @@ describe("assertx", function () {
     assertx.isNotObject(42);
 
     expect(() => assertx.isNotObject(actual))
-    .to.throw("expected {} not to be an object")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} not to be an object")
+      .and.to.deep.include({actual});
   });
 
   it(".isArray", function () {
@@ -302,8 +302,8 @@ describe("assertx", function () {
     assertx.isArray([]);
 
     expect(() => assertx.isArray(actual))
-    .to.throw("expected 42 to be an array")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be an array")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotArray", function () {
@@ -312,8 +312,8 @@ describe("assertx", function () {
     assertx.isNotArray(42);
 
     expect(() => assertx.isNotArray(actual))
-    .to.throw("expected [] not to be an array")
-    .and.to.deep.include({actual});
+      .to.throw("expected [] not to be an array")
+      .and.to.deep.include({actual});
   });
 
   it(".isString", function () {
@@ -322,8 +322,8 @@ describe("assertx", function () {
     assertx.isString("cat");
 
     expect(() => assertx.isString(actual))
-    .to.throw("expected 42 to be a string")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be a string")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotString", function () {
@@ -332,8 +332,8 @@ describe("assertx", function () {
     assertx.isNotString(42);
 
     expect(() => assertx.isNotString(actual))
-    .to.throw("expected 'cat' not to be a string")
-    .and.to.deep.include({actual});
+      .to.throw("expected 'cat' not to be a string")
+      .and.to.deep.include({actual});
   });
 
   it(".isNumber", function () {
@@ -342,8 +342,8 @@ describe("assertx", function () {
     assertx.isNumber(42);
 
     expect(() => assertx.isNumber(actual))
-    .to.throw("expected 'cat' to be a number")
-    .and.to.deep.include({actual});
+      .to.throw("expected 'cat' to be a number")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotNumber", function () {
@@ -352,8 +352,8 @@ describe("assertx", function () {
     assertx.isNotNumber("cat");
 
     expect(() => assertx.isNotNumber(actual))
-    .to.throw("expected 42 not to be a number")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 not to be a number")
+      .and.to.deep.include({actual});
   });
 
   it(".isBoolean", function () {
@@ -362,8 +362,8 @@ describe("assertx", function () {
     assertx.isBoolean(true);
 
     expect(() => assertx.isBoolean(actual))
-    .to.throw("expected 42 to be a boolean")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be a boolean")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotBoolean", function () {
@@ -372,8 +372,8 @@ describe("assertx", function () {
     assertx.isNotBoolean(42);
 
     expect(() => assertx.isNotBoolean(actual))
-    .to.throw("expected true not to be a boolean")
-    .and.to.deep.include({actual});
+      .to.throw("expected true not to be a boolean")
+      .and.to.deep.include({actual});
   });
 
   it(".typeOf", function () {
@@ -383,8 +383,8 @@ describe("assertx", function () {
     assertx.typeOf("regexp", actual);
 
     expect(() => assertx.typeOf(type, actual))
-    .to.throw("expected /meow/ to be a number")
-    .and.to.deep.include({actual});
+      .to.throw("expected /meow/ to be a number")
+      .and.to.deep.include({actual});
   });
 
   it(".notTypeOf", function () {
@@ -394,8 +394,8 @@ describe("assertx", function () {
     assertx.notTypeOf("number", actual);
 
     expect(() => assertx.notTypeOf(type, actual))
-    .to.throw("expected /meow/ not to be a regexp")
-    .and.to.deep.include({actual});
+      .to.throw("expected /meow/ not to be a regexp")
+      .and.to.deep.include({actual});
   });
 
   it(".instanceOf", function () {
@@ -407,8 +407,8 @@ describe("assertx", function () {
     assertx.instanceOf(Cat, actual);
 
     expect(() => assertx.instanceOf(parent, actual))
-    .to.throw("expected {} to be an instance of Dog")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to be an instance of Dog")
+      .and.to.deep.include({actual});
   });
 
   it(".notInstanceOf", function () {
@@ -420,8 +420,8 @@ describe("assertx", function () {
     assertx.notInstanceOf(Dog, actual);
 
     expect(() => assertx.notInstanceOf(parent, actual))
-    .to.throw("expected {} to not be an instance of Cat")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to not be an instance of Cat")
+      .and.to.deep.include({actual});
   });
 
   it(".include", function () {
@@ -431,8 +431,8 @@ describe("assertx", function () {
     assertx.include("ea", actual);
 
     expect(() => assertx.include(needle, actual))
-    .to.throw("expected 'team' to include 'i'")
-    .and.to.deep.include({actual});
+      .to.throw("expected 'team' to include 'i'")
+      .and.to.deep.include({actual});
   });
 
   it(".notInclude", function () {
@@ -442,8 +442,8 @@ describe("assertx", function () {
     assertx.notInclude("i", actual);
 
     expect(() => assertx.notInclude(needle, actual))
-    .to.throw("expected 'team' to not include 'ea'")
-    .and.to.deep.include({actual});
+      .to.throw("expected 'team' to not include 'ea'")
+      .and.to.deep.include({actual});
   });
 
   it(".match", function () {
@@ -453,8 +453,8 @@ describe("assertx", function () {
     assertx.match(/ea/, actual);
 
     expect(() => assertx.match(regexp, actual))
-    .to.throw("expected 'team' to match /i/")
-    .and.to.deep.include({actual});
+      .to.throw("expected 'team' to match /i/")
+      .and.to.deep.include({actual});
   });
 
   it(".notMatch", function () {
@@ -464,8 +464,8 @@ describe("assertx", function () {
     assertx.notMatch(/i/, actual);
 
     expect(() => assertx.notMatch(regexp, actual))
-    .to.throw("expected 'team' not to match /ea/")
-    .and.to.deep.include({actual});
+      .to.throw("expected 'team' not to match /ea/")
+      .and.to.deep.include({actual});
   });
 
   it(".property", function () {
@@ -475,8 +475,8 @@ describe("assertx", function () {
     assertx.property("cat", actual);
 
     expect(() => assertx.property(prop, actual))
-    .to.throw("expected { cat: 'meow' } to have a property 'dog'")
-    .and.to.deep.include({actual});
+      .to.throw("expected { cat: 'meow' } to have a property 'dog'")
+      .and.to.deep.include({actual});
   });
 
   it(".notProperty", function () {
@@ -486,8 +486,8 @@ describe("assertx", function () {
     assertx.notProperty("dog", actual);
 
     expect(() => assertx.notProperty(prop, actual))
-    .to.throw("expected { cat: 'meow' } to not have property 'cat'")
-    .and.to.deep.include({actual});
+      .to.throw("expected { cat: 'meow' } to not have property 'cat'")
+      .and.to.deep.include({actual});
   });
 
   it(".deepProperty", function () {
@@ -497,9 +497,9 @@ describe("assertx", function () {
     assertx.deepProperty("cat.sound", actual);
 
     expect(() => assertx.deepProperty(prop, actual))
-    .to.throw("expected { cat: { sound: 'meow' } } to have a deep property"
-      + " 'cat.tail'")
-    .and.to.deep.include({actual});
+      .to.throw("expected { cat: { sound: 'meow' } } to have a deep property"
+              + " 'cat.tail'")
+      .and.to.deep.include({actual});
   });
 
   it(".notDeepProperty", function () {
@@ -509,9 +509,9 @@ describe("assertx", function () {
     assertx.notDeepProperty("cat.tail", actual);
 
     expect(() => assertx.notDeepProperty(prop, actual))
-    .to.throw("expected { cat: { sound: 'meow' } } to not have deep property"
-      + " 'cat.sound'")
-    .and.to.deep.include({actual});
+      .to.throw("expected { cat: { sound: 'meow' } } to not have deep property"
+              + " 'cat.sound'")
+      .and.to.deep.include({actual});
   });
 
   it(".propertyVal", function () {
@@ -522,9 +522,9 @@ describe("assertx", function () {
     assertx.propertyVal(prop, "meow", actual);
 
     expect(() => assertx.propertyVal(prop, expected, actual))
-    .to.throw("expected { cat: 'meow' } to have a property 'cat' of 'hiss',"
-      + " but got 'meow'")
-    .and.to.deep.include({expected, actual: "meow"});
+      .to.throw("expected { cat: 'meow' } to have a property 'cat' of 'hiss',"
+              + " but got 'meow'")
+      .and.to.deep.include({expected, actual: "meow"});
   });
 
   it(".propertyNotVal", function () {
@@ -535,8 +535,9 @@ describe("assertx", function () {
     assertx.propertyNotVal(prop, "hiss", actual);
 
     expect(() => assertx.propertyNotVal(prop, expected, actual))
-    .to.throw("expected { cat: 'meow' } to not have a property 'cat' of 'meow'")
-    .and.to.deep.include({expected, actual: "meow"});
+      .to.throw("expected { cat: 'meow' } to not have a property 'cat' of"
+              + " 'meow'")
+      .and.to.deep.include({expected, actual: "meow"});
   });
 
   it(".deepPropertyVal", function () {
@@ -547,9 +548,9 @@ describe("assertx", function () {
     assertx.deepPropertyVal(prop, "meow", actual);
 
     expect(() => assertx.deepPropertyVal(prop, expected, actual))
-    .to.throw("expected { cat: { sound: 'meow' } } to have a deep property"
-      + " 'cat.sound' of 'hiss', but got 'meow'")
-    .and.to.deep.include({expected, actual: "meow"});
+      .to.throw("expected { cat: { sound: 'meow' } } to have a deep property"
+              + " 'cat.sound' of 'hiss', but got 'meow'")
+      .and.to.deep.include({expected, actual: "meow"});
   });
 
   it(".deepPropertyNotVal", function () {
@@ -560,9 +561,9 @@ describe("assertx", function () {
     assertx.deepPropertyNotVal(prop, "hiss", actual);
 
     expect(() => assertx.deepPropertyNotVal(prop, expected, actual))
-    .to.throw("expected { cat: { sound: 'meow' } } to not have a deep property"
-      + " 'cat.sound' of 'meow'")
-    .and.to.deep.include({expected, actual: "meow"});
+      .to.throw("expected { cat: { sound: 'meow' } } to not have a deep"
+              + " property 'cat.sound' of 'meow'")
+      .and.to.deep.include({expected, actual: "meow"});
   });
 
   it(".lengthOf", function () {
@@ -572,8 +573,8 @@ describe("assertx", function () {
     assertx.lengthOf(expected, "bird");
 
     expect(() => assertx.lengthOf(expected, actual))
-    .to.throw("expected 'cat' to have a length of 4")
-    .and.to.deep.include({expected, actual: 3});
+      .to.throw("expected 'cat' to have a length of 4")
+      .and.to.deep.include({expected, actual: 3});
   });
 
   it(".throws", function () {
@@ -587,8 +588,8 @@ describe("assertx", function () {
 
     /* eslint-disable max-len */
     expect(() => assertx.throws(expectedType, expectedString, actual))
-    .to.throw(/expected \[Function(: actual)*\] to throw error including 'wrong dog' but got 'wrong cat'/)
-    .and.to.deep.include({expected: expectedString, actual: "wrong cat"});
+      .to.throw(/expected \[Function(: actual)*\] to throw error including 'wrong dog' but got 'wrong cat'/)
+      .and.to.deep.include({expected: expectedString, actual: "wrong cat"});
     /* eslint-enable max-len */
   });
 
@@ -600,8 +601,8 @@ describe("assertx", function () {
 
     /* eslint-disable max-len */
     expect(() => assertx.doesNotThrow(expected, actual))
-    .to.throw(/expected \[Function(: actual)*\] to not throw 'TypeError' but 'TypeError' was thrown/)
-    .and.to.deep.include({expected: "TypeError", actual: "TypeError"});
+      .to.throw(/expected \[Function(: actual)*\] to not throw 'TypeError' but 'TypeError' was thrown/)
+      .and.to.deep.include({expected: "TypeError", actual: "TypeError"});
     /* eslint-enable max-len */
   });
 
@@ -609,8 +610,8 @@ describe("assertx", function () {
     assertx.operator(42, ">", 41);
 
     expect(() => assertx.operator(42, ">", 43))
-    .to.throw("expected 42 to be > 43")
-    .and.to.deep.include({actual: false});
+      .to.throw("expected 42 to be > 43")
+      .and.to.deep.include({actual: false});
   });
 
   it(".closeTo", function () {
@@ -621,8 +622,8 @@ describe("assertx", function () {
     assertx.closeTo(expected, 11, actual);
 
     expect(() => assertx.closeTo(expected, delta, actual))
-    .to.throw("expected 42 to be close to 31 +/- 10")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be close to 31 +/- 10")
+      .and.to.deep.include({actual});
   });
 
   it(".approximately", function () {
@@ -633,8 +634,8 @@ describe("assertx", function () {
     assertx.approximately(expected, 11, actual);
 
     expect(() => assertx.approximately(expected, delta, actual))
-    .to.throw("expected 42 to be close to 31 +/- 10")
-    .and.to.deep.include({actual});
+      .to.throw("expected 42 to be close to 31 +/- 10")
+      .and.to.deep.include({actual});
   });
 
   it(".sameMembers", function () {
@@ -645,9 +646,9 @@ describe("assertx", function () {
 
     // TODO: Swap expected and actual once chai bug fixed
     expect(() => assertx.sameMembers(expected, actual))
-    .to.throw("expected [ 'cat', 'dog' ] to have the same members as"
-      + " [ 'cat', 'pig' ]")
-    .and.to.deep.include({expected: actual, actual: expected});
+      .to.throw("expected [ 'cat', 'dog' ] to have the same members as"
+              + " [ 'cat', 'pig' ]")
+      .and.to.deep.include({expected: actual, actual: expected});
   });
 
   it(".sameDeepMembers", function () {
@@ -658,9 +659,9 @@ describe("assertx", function () {
 
     // TODO: Swap expected and actual once chai bug fixed
     expect(() => assertx.sameDeepMembers(expected, actual))
-    .to.throw("expected [ { cat: 'meow' }, { dog: 'woof' } ] to have the same"
-      + " members as [ { cat: 'meow' }, { pig: 'oink' } ]")
-    .and.to.deep.include({expected: actual, actual: expected});
+      .to.throw("expected [ { cat: 'meow' }, { dog: 'woof' } ] to have the same"
+              + " members as [ { cat: 'meow' }, { pig: 'oink' } ]")
+      .and.to.deep.include({expected: actual, actual: expected});
   });
 
   it(".includeMembers", function () {
@@ -671,8 +672,9 @@ describe("assertx", function () {
 
     // TODO: Swap expected and actual once chai bug fixed
     expect(() => assertx.includeMembers(expected, actual))
-    .to.throw("expected [ 'cat', 'dog' ] to be a superset of [ 'cat', 'pig' ]")
-    .and.to.deep.include({expected: actual, actual: expected});
+      .to.throw("expected [ 'cat', 'dog' ] to be a superset of"
+              + " [ 'cat', 'pig' ]")
+      .and.to.deep.include({expected: actual, actual: expected});
   });
 
   it(".includeDeepMembers", function () {
@@ -683,9 +685,9 @@ describe("assertx", function () {
 
     // TODO: Swap expected and actual once chai bug fixed
     expect(() => assertx.includeDeepMembers(expected, actual))
-    .to.throw("expected [ { cat: 'meow' }, { dog: 'woof' } ] to be a superset"
-      + " of [ { cat: 'meow' }, { pig: 'oink' } ]")
-    .and.to.deep.include({expected: actual, actual: expected});
+      .to.throw("expected [ { cat: 'meow' }, { dog: 'woof' } ] to be a superset"
+              + " of [ { cat: 'meow' }, { pig: 'oink' } ]")
+      .and.to.deep.include({expected: actual, actual: expected});
   });
 
   it(".oneOf", function () {
@@ -695,8 +697,8 @@ describe("assertx", function () {
     assertx.oneOf(expected, "dog");
 
     expect(() => assertx.oneOf(expected, actual))
-    .to.throw("expected 'cat' to be one of [ 'dog', 'pig' ]")
-    .and.to.deep.include({expected, actual});
+      .to.throw("expected 'cat' to be one of [ 'dog', 'pig' ]")
+      .and.to.deep.include({expected, actual});
   });
 
   it(".changes", function () {
@@ -707,8 +709,8 @@ describe("assertx", function () {
     assertx.changes(expected, "dog", actual);
 
     expect(() => assertx.changes(expected, prop, actual))
-    .to.throw("expected .cat to change")
-    .and.to.deep.include({actual});
+      .to.throw("expected .cat to change")
+      .and.to.deep.include({actual});
   });
 
   it(".ifError", function () {
@@ -729,8 +731,8 @@ describe("assertx", function () {
 
     // eslint-disable-next-line prefer-reflect
     expect(() => assertx.isExtensible(actual))
-    .to.throw("expected {} to be extensible")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to be extensible")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotExtensible", function () {
@@ -742,8 +744,8 @@ describe("assertx", function () {
     assertx.isNotExtensible(obj);
 
     expect(() => assertx.isNotExtensible(actual))
-    .to.throw("expected {} to not be extensible")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to not be extensible")
+      .and.to.deep.include({actual});
   });
 
   it(".isSealed", function () {
@@ -755,8 +757,8 @@ describe("assertx", function () {
     assertx.isSealed(obj);
 
     expect(() => assertx.isSealed(actual))
-    .to.throw("expected {} to be sealed")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to be sealed")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotSealed", function () {
@@ -768,8 +770,8 @@ describe("assertx", function () {
     Object.seal(actual);
 
     expect(() => assertx.isNotSealed(actual))
-    .to.throw("expected {} to not be sealed")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to not be sealed")
+      .and.to.deep.include({actual});
   });
 
   it(".isFrozen", function () {
@@ -781,8 +783,8 @@ describe("assertx", function () {
     assertx.isFrozen(obj);
 
     expect(() => assertx.isFrozen(actual))
-    .to.throw("expected {} to be frozen")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to be frozen")
+      .and.to.deep.include({actual});
   });
 
   it(".isNotFrozen", function () {
@@ -794,8 +796,8 @@ describe("assertx", function () {
     Object.freeze(actual);
 
     expect(() => assertx.isNotFrozen(actual))
-    .to.throw("expected {} to not be frozen")
-    .and.to.deep.include({actual});
+      .to.throw("expected {} to not be frozen")
+      .and.to.deep.include({actual});
   });
 
   it("aliases", function () {
