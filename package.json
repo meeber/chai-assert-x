@@ -34,7 +34,7 @@
     "build": "shjs script/build.js",
     "bundle": "shjs script/bundle.js",
     "clean": "shjs script/clean.js",
-    "lint": "eslint --fix .",
+    "lint": "eslint --color --fix .",
     "postversion": "shjs script/postversion.js",
     "preversion": "shjs script/preversion.js",
     "release-major": "npm version major -m 'Finalize v%s'",

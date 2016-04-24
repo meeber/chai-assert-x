@@ -22,7 +22,7 @@ function main () {
 
   var tests = process.argv.length > 2 ? process.argv.slice(2) : ["main"];
 
-  var i, target;
+  var i;
 
   for (i = 0; i < tests.length; i++) {
     echo("*** BEGIN TEST " + tests[i]);
@@ -32,16 +32,15 @@ function main () {
       case "legacy":
       case "legacy-shim":
       case "main":
-        target = "test/index.js";
+        runTest(env, shim, tests[i], "test/index.js");
         break;
       case "src":
-        target = "test/";
+        runTest(env, shim, tests[i], "test/");
+        exec("npm run lint");
         break;
       default:
         throw Error("Invalid test: " + tests[i]);
     }
-
-    runTest(env, shim, tests[i], target);
 
     echo("*** END TEST " + tests[i]);
   }
