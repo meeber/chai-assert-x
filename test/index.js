@@ -2,6 +2,7 @@
 
 chai.use(chaiAssertX);
 
+let assert = chai.assert;
 let assertx = chai.assertx;
 
 describe("assertx", function () {
@@ -14,22 +15,22 @@ describe("assertx", function () {
       .and.to.deep.include({expected, actual});
   });
 
-  it(".isOk", function () {
+  it(".ok", function () {
     let actual = false;
 
-    assertx.isOk(true);
+    assertx.ok(true);
 
-    expect(() => assertx.isOk(actual))
+    expect(() => assertx.ok(actual))
       .to.throw("expected false to be truthy")
       .and.to.deep.include({actual});
   });
 
-  it(".isNotOk", function () {
+  it(".notOk", function () {
     let actual = true;
 
-    assertx.isNotOk(false);
+    assertx.notOk(false);
 
-    expect(() => assertx.isNotOk(actual))
+    expect(() => assertx.notOk(actual))
       .to.throw("expected true to be falsy")
       .and.to.deep.include({actual});
   });
@@ -113,6 +114,9 @@ describe("assertx", function () {
   });
 
   it(".isAbove", function () {
+    // Added in Chai v2.0.0
+    if (typeof assert.isAbove !== "function") this.skip();
+
     let above = 43;
     let actual = 42;
 
@@ -124,6 +128,9 @@ describe("assertx", function () {
   });
 
   it(".isAtLeast", function () {
+    // Added in Chai v3.3.0
+    if (typeof assert.isAtLeast !== "function") this.skip();
+
     let atLeast = 43;
     let actual = 42;
 
@@ -135,6 +142,9 @@ describe("assertx", function () {
   });
 
   it(".isBelow", function () {
+    // Added in Chai v2.0.0
+    if (typeof assert.isBelow !== "function") this.skip();
+
     let below = 41;
     let actual = 42;
 
@@ -146,6 +156,9 @@ describe("assertx", function () {
   });
 
   it(".isAtMost", function () {
+    // Added in Chai v3.3.0
+    if (typeof assert.isAtMost !== "function") this.skip();
+
     let atMost = 41;
     let actual = 42;
 
@@ -167,6 +180,9 @@ describe("assertx", function () {
   });
 
   it(".isNotTrue", function () {
+    // Added in Chai v3.3.0
+    if (typeof assert.isNotTrue !== "function") this.skip();
+
     let actual = true;
 
     assertx.isNotTrue(false);
@@ -187,6 +203,9 @@ describe("assertx", function () {
   });
 
   it(".isNotFalse", function () {
+    // Added in Chai v3.3.0
+    if (typeof assert.isNotFalse !== "function") this.skip();
+
     let actual = false;
 
     assertx.isNotFalse(true);
@@ -217,6 +236,9 @@ describe("assertx", function () {
   });
 
   it(".isNaN", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.isNaN !== "function") this.skip();
+
     let actual = 42;
 
     assertx.isNaN(NaN);
@@ -227,6 +249,9 @@ describe("assertx", function () {
   });
 
   it(".isNotNaN", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.isNotNaN !== "function") this.skip();
+
     let actual = NaN;
 
     assertx.isNotNaN(42);
@@ -251,9 +276,9 @@ describe("assertx", function () {
 
     assertx.isDefined(42);
 
+    // Note: Older versions of Chai didn't properly set "actual"
     expect(() => assertx.isDefined(actual))
-      .to.throw("expected undefined to not equal undefined")
-      .and.to.deep.include({actual});
+      .to.throw("expected undefined to not equal undefined");
   });
 
   it(".isFunction", function () {
@@ -627,6 +652,9 @@ describe("assertx", function () {
   });
 
   it(".approximately", function () {
+    // Added in Chai v3.4.0
+    if (typeof assert.approximately !== "function") this.skip();
+
     let delta = 10;
     let expected = 31;
     let actual = 42;
@@ -652,6 +680,9 @@ describe("assertx", function () {
   });
 
   it(".sameDeepMembers", function () {
+    // Added in Chai v2.0.0
+    if (typeof assert.sameDeepMembers !== "function") this.skip();
+
     let expected = [{cat: "meow"}, {pig: "oink"}];
     let actual = [{cat: "meow"}, {dog: "woof"}];
 
@@ -678,6 +709,9 @@ describe("assertx", function () {
   });
 
   it(".includeDeepMembers", function () {
+    // Added in Chai v3.5.0
+    if (typeof assert.includeDeepMembers !== "function") this.skip();
+
     let expected = [{cat: "meow"}, {pig: "oink"}];
     let actual = [{cat: "meow"}, {dog: "woof"}];
 
@@ -691,6 +725,9 @@ describe("assertx", function () {
   });
 
   it(".oneOf", function () {
+    // Added in Chai v3.4.0
+    if (typeof assert.oneOf !== "function") this.skip();
+
     let expected = ["dog", "pig"];
     let actual = "cat";
 
@@ -701,6 +738,7 @@ describe("assertx", function () {
       .and.to.deep.include({expected, actual});
   });
 
+  /* NYI
   it(".changes", function () {
     let prop = "cat";
     let expected = {cat: "meow", dog: "grrr"};
@@ -712,30 +750,38 @@ describe("assertx", function () {
       .to.throw("expected .cat to change")
       .and.to.deep.include({actual});
   });
+  */
 
   it(".ifError", function () {
     let actual = new Error("meow");
 
     assertx.ifError(false);
 
-    expect(() => assertx.ifError(actual)).to.throw(actual);
+    // Note: Older versions of Chai throw a message instead of "actual"
+    expect(() => assertx.ifError(actual)).to.throw();
   });
 
-  it(".isExtensible", function () {
+  it(".extensible", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.extensible !== "function") this.skip();
+
     let actual = {};
 
     // eslint-disable-next-line prefer-reflect
-    assertx.isExtensible(actual);
+    assertx.extensible(actual);
 
     Reflect.preventExtensions(actual);
 
     // eslint-disable-next-line prefer-reflect
-    expect(() => assertx.isExtensible(actual))
+    expect(() => assertx.extensible(actual))
       .to.throw("expected {} to be extensible")
       .and.to.deep.include({actual});
   });
 
-  it(".isNotExtensible", function () {
+  it(".notExtensible", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.notExtensible !== "function") this.skip();
+
     let actual = {};
     let obj = {};
 
@@ -743,71 +789,128 @@ describe("assertx", function () {
 
     assertx.isNotExtensible(obj);
 
-    expect(() => assertx.isNotExtensible(actual))
+    expect(() => assertx.notExtensible(actual))
       .to.throw("expected {} to not be extensible")
       .and.to.deep.include({actual});
   });
 
-  it(".isSealed", function () {
+  it(".sealed", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.sealed !== "function") this.skip();
+
     let actual = {};
     let obj = {};
 
     Object.seal(obj);
 
-    assertx.isSealed(obj);
+    assertx.sealed(obj);
 
-    expect(() => assertx.isSealed(actual))
+    expect(() => assertx.sealed(actual))
       .to.throw("expected {} to be sealed")
       .and.to.deep.include({actual});
   });
 
-  it(".isNotSealed", function () {
+  it(".notSealed", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.notSealed !== "function") this.skip();
+
     let actual = {};
     let obj = {};
 
-    assertx.isNotSealed(obj);
+    assertx.notSealed(obj);
 
     Object.seal(actual);
 
-    expect(() => assertx.isNotSealed(actual))
+    expect(() => assertx.notSealed(actual))
       .to.throw("expected {} to not be sealed")
       .and.to.deep.include({actual});
   });
 
-  it(".isFrozen", function () {
+  it(".frozen", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.frozen !== "function") this.skip();
+
     let actual = {};
     let obj = {};
 
     Object.freeze(obj);
 
-    assertx.isFrozen(obj);
+    assertx.frozen(obj);
 
-    expect(() => assertx.isFrozen(actual))
+    expect(() => assertx.frozen(actual))
       .to.throw("expected {} to be frozen")
       .and.to.deep.include({actual});
   });
 
-  it(".isNotFrozen", function () {
+  it(".notFrozen", function () {
+    // Added in Chai v3.1.0
+    if (typeof assert.notFrozen !== "function") this.skip();
+
     let actual = {};
     let obj = {};
 
-    assertx.isNotFrozen(obj);
+    assertx.notFrozen(obj);
 
     Object.freeze(actual);
 
-    expect(() => assertx.isNotFrozen(actual))
+    expect(() => assertx.notFrozen(actual))
       .to.throw("expected {} to not be frozen")
       .and.to.deep.include({actual});
   });
 
-  it("aliases", function () {
+  it(".isOk", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isOk !== "function") this.skip();
+
     expect(assertx.isOk).to.equal(assertx.ok);
+  });
+
+  it(".isNotOk", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isNotOk !== "function") this.skip();
+
     expect(assertx.isNotOk).to.equal(assertx.notOk);
+  });
+
+  it(".isExtensible", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isExtensible !== "function") this.skip();
+
     expect(assertx.isExtensible).to.equal(assertx.extensible);
+  });
+
+  it(".isNotExtensible", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isNotExtensible !== "function") this.skip();
+
     expect(assertx.isNotExtensible).to.equal(assertx.notExtensible);
+  });
+
+  it(".isSealed", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isSealed !== "function") this.skip();
+
     expect(assertx.isSealed).to.equal(assertx.sealed);
+  });
+
+  it(".isNotSealed", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isNotSealed !== "function") this.skip();
+
     expect(assertx.isNotSealed).to.equal(assertx.notSealed);
+  });
+
+  it(".isFrozen", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isFrozen !== "function") this.skip();
+
     expect(assertx.isFrozen).to.equal(assertx.frozen);
+  });
+
+  it(".isNotFrozen", function () {
+    // Added in Chai v3.2.0
+    if (typeof assert.isNotFrozen !== "function") this.skip();
+
     expect(assertx.isNotFrozen).to.equal(assertx.notFrozen);
   });
 });
