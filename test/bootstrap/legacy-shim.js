@@ -1,3 +1,5 @@
-var subject = require("./common");
+require("./common");
 
-global[subject] = require("../../build/legacy-shim");
+var foolishrc = require("../../script/util/foolishrc");
+
+global[foolishrc.mainExport] = require("../../build/legacy-shim");

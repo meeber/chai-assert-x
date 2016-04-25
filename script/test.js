@@ -5,7 +5,7 @@ require("shelljs/global");
 // Older versions of node swallow some errors if this isn't set
 config.fatal = true;
 
-var detectBuild = require("../detect-build");
+var detectBuild = require("./util/detect-build");
 
 function runBuildTest (test) {
   // Note: There isn't a legacy-shim test build. Instead, use legacy test build.

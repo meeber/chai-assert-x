@@ -4,8 +4,6 @@ if (typeof window === "object") {
   // eslint-disable-next-line no-native-reassign
   global = window;
   mocha.setup("bdd");
-} else {
-  module.exports = "chaiAssertX";
 }
 
 global.chai = require("chai");

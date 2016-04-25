@@ -26,6 +26,7 @@
     "eslint": "^2.8.0",
     "eslint-config-tt": "^1.1.4",
     "exorcist": "^0.4.0",
+    "js-yaml": "^3.6.0",
     "mocha": "^2.4.5",
     "shelljs": "^0.6.0",
     "source-map-support": "^0.4.0"

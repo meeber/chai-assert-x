@@ -4,6 +4,8 @@ require("shelljs/global");
 // Older versions of node swallow some errors if this isn't set
 config.fatal = true;
 
+var foolishrc = require("./util/foolishrc");
+
 function createBundle (bundle) {
   // Note: The legacy-shim and legacy bootstrap/test are identical. The shim for
   // legacy-shim is provided via its bundle.js; it will apply to tests too.
@@ -13,7 +15,7 @@ function createBundle (bundle) {
   mkdir("-p", "bundle/" + bundle + "/test/");
 
   // Release bundle
-  exec("browserify -d -s chaiAssertX build/" + bundle
+  exec("browserify -d -s " + foolishrc.mainExport + " build/" + bundle
      + " | exorcist bundle/" + bundle + "/bundle.js.map"
      + " > bundle/" + bundle + "/bundle.js");
 

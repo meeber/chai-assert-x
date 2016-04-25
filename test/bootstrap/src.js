@@ -1,5 +1,6 @@
-var subject = require("./common");
-
+require("./common");
 require("babel-core/register");
 
-global[subject] = require("../../src/");
+var foolishrc = require("../../script/util/foolishrc");
+
+global[foolishrc.mainExport] = require("../../src/");
