@@ -1,8 +1,8 @@
-// eslint-disable-next-line no-var
+var foolishrc = require("./foolishrc");
 var semver = require("semver");
 
 module.exports = function detectBuild () {
-  return semver.gte(process.version, "v6.0.0-rc.0") ? "current"
+  return semver.gte(process.version, foolishrc.minCurNodeVer) ? "current"
        : typeof Reflect === "object" ? "legacy"
        : "legacy-shim";
 };
