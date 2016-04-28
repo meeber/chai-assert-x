@@ -35,7 +35,7 @@
     "build": "node script/build.js",
     "bundle": "node script/bundle.js",
     "clean": "node script/clean.js",
-    "lint": "eslint --color --fix .",
+    "lint": "node script/lint.js",
     "postversion": "node script/postversion.js",
     "preversion": "node script/preversion.js",
     "release": "node script/release.js",
