@@ -2,6 +2,8 @@ var sh = require("shelljs");
 
 sh.set("-e");
 
+var detectBuild = require("./util/detect-build");
+
 function createBuild (build) {
   sh.exec("BABEL_ENV=" + build + " babel"
         + " -s inline"
@@ -18,9 +20,9 @@ function createBuild (build) {
 
 function main () {
   sh.exec("npm run clean build");
+  sh.exec("npm run test src");
 
-  var builds = process.argv.length > 2 ? process.argv.slice(2)
-             : ["current", "legacy", "legacy-shim"];
+  var builds = ["current", "legacy", "legacy-shim"];
 
   var i;
 
@@ -41,6 +43,9 @@ function main () {
 
     sh.echo("*** END BUILD " + builds[i]);
   }
+
+  sh.exec("npm run test " + detectBuild());
+  sh.exec("npm run bundle");
 }
 
 main();

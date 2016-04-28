@@ -54,8 +54,7 @@ function createBundle (bundle) {
 function main () {
   sh.exec("npm run clean bundle");
 
-  var bundles = process.argv.length > 2 ? process.argv.slice(2)
-              : ["current", "legacy", "legacy-shim"];
+  var bundles = ["current", "legacy", "legacy-shim"];
 
   var i;
 
