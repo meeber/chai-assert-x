@@ -38,9 +38,7 @@
     "lint": "eslint --color --fix .",
     "postversion": "node script/postversion.js",
     "preversion": "node script/preversion.js",
-    "release-major": "npm version major -m 'Finalize v%s'",
-    "release-minor": "npm version minor -m 'Finalize v%s'",
-    "release-patch": "npm version patch -m 'Finalize v%s'",
+    "release": "node script/release.js",
     "test": "node script/test.js"
   }
 }
