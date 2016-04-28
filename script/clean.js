@@ -1,8 +1,6 @@
-/* global config echo rm */
-require("shelljs/global");
+var sh = require("shelljs");
 
-// Older versions of node swallow some errors if this isn't set
-config.fatal = true;
+sh.set("-e");
 
 function main () {
   var targets = process.argv.length > 2 ? process.argv.slice(2)
@@ -11,18 +9,18 @@ function main () {
   var i;
 
   for (i = 0; i < targets.length; i++) {
-    echo("*** BEGIN CLEAN " + targets[i]);
+    sh.echo("*** BEGIN CLEAN " + targets[i]);
 
     switch (targets[i]) {
       case "bundle":
       case "build":
-        rm("-rf", targets[i]);
+        sh.rm("-rf", targets[i]);
         break;
       default:
         throw Error("Invalid target: " + targets[i]);
     }
 
-    echo("*** END CLEAN " + targets[i]);
+    sh.echo("*** END CLEAN " + targets[i]);
   }
 }
 

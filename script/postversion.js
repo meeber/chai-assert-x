@@ -1,11 +1,9 @@
-/* global config exec */
-require("shelljs/global");
+var sh = require("shelljs");
 
-// Older versions of node swallow some errors if this isn't set
-config.fatal = true;
+sh.set("-e");
 
-exec("git checkout dev");
-exec("git merge master");
-exec("git push");
-exec("git push --tags");
-exec("npm publish");
+sh.exec("git checkout dev");
+sh.exec("git merge master");
+sh.exec("git push");
+sh.exec("git push --tags");
+sh.exec("npm publish");

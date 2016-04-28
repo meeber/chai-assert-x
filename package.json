@@ -29,19 +29,18 @@
     "exorcist": "^0.4.0",
     "js-yaml": "^3.6.0",
     "mocha": "^2.4.5",
-    "shelljs": "^0.6.0",
     "source-map-support": "^0.4.0"
   },
   "scripts": {
-    "build": "shjs script/build.js",
-    "bundle": "shjs script/bundle.js",
-    "clean": "shjs script/clean.js",
+    "build": "node script/build.js",
+    "bundle": "node script/bundle.js",
+    "clean": "node script/clean.js",
     "lint": "eslint --color --fix .",
-    "postversion": "shjs script/postversion.js",
-    "preversion": "shjs script/preversion.js",
+    "postversion": "node script/postversion.js",
+    "preversion": "node script/preversion.js",
     "release-major": "npm version major -m 'Finalize v%s'",
     "release-minor": "npm version minor -m 'Finalize v%s'",
     "release-patch": "npm version patch -m 'Finalize v%s'",
-    "test": "shjs script/test.js"
+    "test": "node script/test.js"
   }
 }

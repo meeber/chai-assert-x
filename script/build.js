@@ -1,20 +1,23 @@
-/* global config cp echo exec mkdir */
-require("shelljs/global");
+var sh = require("shelljs");
 
-// Older versions of node swallow some errors if this isn't set
-config.fatal = true;
+sh.set("-e");
 
 function createBuild (build) {
-  exec("BABEL_ENV=" + build + " babel -s inline -d build/" + build + "/ src/");
+  sh.exec("BABEL_ENV=" + build + " babel"
+        + " -s inline"
+        + " -d build/" + build + "/"
+        + " src/");
 
-  mkdir("build/" + build + "/test");
+  sh.mkdir("build/" + build + "/test");
 
-  exec("BABEL_ENV=" + build + " babel -s inline"
-     + " -o build/" + build + "/test/index.js test/index.js");
+  sh.exec("BABEL_ENV=" + build + " babel"
+        + " -s inline"
+        + " -o build/" + build + "/test/index.js"
+        + " test/index.js");
 }
 
 function main () {
-  exec("npm run clean build");
+  sh.exec("npm run clean build");
 
   var builds = process.argv.length > 2 ? process.argv.slice(2)
              : ["current", "legacy", "legacy-shim"];
@@ -22,7 +25,7 @@ function main () {
   var i;
 
   for (i = 0; i < builds.length; i++) {
-    echo("*** BEGIN BUILD " + builds[i]);
+    sh.echo("*** BEGIN BUILD " + builds[i]);
 
     switch (builds[i]) {
       case "current":
@@ -30,13 +33,13 @@ function main () {
         createBuild(builds[i]);
         break;
       case "legacy-shim":
-        cp("script/resource/legacy-shim.js", "build/");
+        sh.cp("script/resource/legacy-shim.js", "build/");
         break;
       default:
         throw Error("Invalid build: " + builds[i]);
     }
 
-    echo("*** END BUILD " + builds[i]);
+    sh.echo("*** END BUILD " + builds[i]);
   }
 }
 

@@ -1,8 +1,6 @@
-/* global config cp echo exec mkdir */
-require("shelljs/global");
+var sh = require("shelljs");
 
-// Older versions of node swallow some errors if this isn't set
-config.fatal = true;
+sh.set("-e");
 
 var foolishrc = require("./util/foolishrc");
 
@@ -12,33 +10,33 @@ function createBundle (bundle) {
 
   var env = bundle.split("-")[0];
 
-  mkdir("-p", "bundle/" + bundle + "/test/");
+  sh.mkdir("-p", "bundle/" + bundle + "/test/");
 
   // Release bundle
-  exec("browserify -d -s " + foolishrc.mainExport + " build/" + bundle
-     + " | exorcist bundle/" + bundle + "/bundle.js.map"
-     + " > bundle/" + bundle + "/bundle.js");
+  sh.exec("browserify -d -s " + foolishrc.mainExport + " build/" + bundle
+        + " | exorcist bundle/" + bundle + "/bundle.js.map"
+        + " > bundle/" + bundle + "/bundle.js");
 
   // Test bootstrap bundle
-  exec("browserify -d test/bootstrap/common.js"
-     + " -o bundle/" + bundle + "/test/bootstrap.js");
+  sh.exec("browserify -d test/bootstrap/common.js"
+        + " -o bundle/" + bundle + "/test/bootstrap.js");
 
   // Test bundle
-  exec("browserify -d build/" + env + "/test/"
-     + " | exorcist bundle/" + bundle + "/test/test.js.map"
-     + " > bundle/" + bundle + "/test/test.js");
+  sh.exec("browserify -d build/" + env + "/test/"
+        + " | exorcist bundle/" + bundle + "/test/test.js.map"
+        + " > bundle/" + bundle + "/test/test.js");
 
-  cp(
+  sh.cp(
     "node_modules/mocha/mocha.css",
     "node_modules/mocha/mocha.js",
     "bundle/" + bundle + "/test/"
   );
 
-  cp("script/resource/test.html", "bundle/" + bundle + "/test/index.html");
+  sh.cp("script/resource/test.html", "bundle/" + bundle + "/test/index.html");
 }
 
 function main () {
-  exec("npm run clean bundle");
+  sh.exec("npm run clean bundle");
 
   var bundles = process.argv.length > 2 ? process.argv.slice(2)
               : ["current", "legacy", "legacy-shim"];
@@ -46,7 +44,7 @@ function main () {
   var i;
 
   for (i = 0; i < bundles.length; i++) {
-    echo("*** BEGIN BUNDLE " + bundles[i]);
+    sh.echo("*** BEGIN BUNDLE " + bundles[i]);
 
     switch (bundles[i]) {
       case "current":
@@ -58,7 +56,7 @@ function main () {
         throw Error("Invalid bundle: " + bundles[i]);
     }
 
-    echo("*** END BUNDLE " + bundles[i]);
+    sh.echo("*** END BUNDLE " + bundles[i]);
   }
 }
 
