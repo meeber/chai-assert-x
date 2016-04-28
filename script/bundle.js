@@ -12,19 +12,35 @@ function createBundle (bundle) {
 
   sh.mkdir("-p", "bundle/" + bundle + "/test/");
 
-  // Release bundle
-  sh.exec("browserify -d -s " + foolishrc.mainExport + " build/" + bundle
-        + " | exorcist bundle/" + bundle + "/bundle.js.map"
+  var buildBundleMap = "bundle/" + bundle + "/bundle.js.map";
+
+  sh.exec("browserify"
+        + " -d"
+        + " -s " + foolishrc.mainExport
+        + " build/" + bundle
+        + " | exorcist " + buildBundleMap
         + " > bundle/" + bundle + "/bundle.js");
 
-  // Test bootstrap bundle
-  sh.exec("browserify -d test/bootstrap/common.js"
+  // TODO: Remove this if exorcist updated to throw errors
+  if (!sh.test("-e", buildBundleMap))
+    throw Error("Failed to create " + buildBundleMap);
+
+  sh.exec("browserify"
+        + " -d"
+        + " test/bootstrap/common.js"
         + " -o bundle/" + bundle + "/test/bootstrap.js");
 
-  // Test bundle
-  sh.exec("browserify -d build/" + env + "/test/"
-        + " | exorcist bundle/" + bundle + "/test/test.js.map"
+  var testBundleMap = "bundle/" + bundle + "/test/test.js.map";
+
+  sh.exec("browserify"
+        + " -d"
+        + " build/" + env + "/test/"
+        + " | exorcist " + testBundleMap
         + " > bundle/" + bundle + "/test/test.js");
+
+  // TODO: Remove this if exorcist updated to throw errors
+  if (!sh.test("-e", testBundleMap))
+    throw Error("Failed to create " + testBundleMap);
 
   sh.cp(
     "node_modules/mocha/mocha.css",
