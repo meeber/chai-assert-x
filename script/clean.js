@@ -4,7 +4,7 @@ sh.set("-e");
 
 function main () {
   var targets = process.argv.length > 2 ? process.argv.slice(2)
-              : ["build", "bundle"];
+              : ["build", "bundle", "coverage"];
 
   var i;
 
@@ -14,6 +14,7 @@ function main () {
     switch (targets[i]) {
       case "bundle":
       case "build":
+      case "coverage":
         sh.rm("-rf", targets[i]);
         break;
       default:

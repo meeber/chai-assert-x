@@ -20,7 +20,7 @@ function createBuild (build) {
 
 function main () {
   sh.exec("npm run clean build");
-  sh.exec("npm run test src");
+  sh.exec("npm run test coverage");
 
   var builds = ["current", "legacy", "legacy-shim"];
 

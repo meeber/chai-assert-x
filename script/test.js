@@ -13,6 +13,23 @@ function runBuildTest (test) {
   sh.exec("mocha -c -r test/bootstrap/" + test + " build/" + env + "/test/");
 }
 
+function runCoverageTest () {
+  var build = detectBuild().split("-");
+  var env = build[0];
+  var shim = build[1] === "shim" ? "-r babel-polyfill" : "";
+
+  sh.exec("npm run clean coverage");
+
+  sh.exec("BABEL_ENV=" + env
+        + " istanbul cover"
+        + " _mocha -- -c"
+        + shim
+        + " -r test/bootstrap/src"
+        + " test/");
+
+  sh.exec("npm run lint");
+}
+
 function runSrcTest () {
   var build = detectBuild().split("-");
   var env = build[0];
@@ -37,6 +54,9 @@ function main () {
     sh.echo("*** BEGIN TEST " + tests[i]);
 
     switch (tests[i]) {
+      case "coverage":
+        runCoverageTest();
+        break;
       case "current":
       case "legacy":
       case "legacy-shim":
