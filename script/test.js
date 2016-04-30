@@ -10,7 +10,9 @@ function runBuildTest (test) {
 
   var env = test.split("-")[0];
 
-  sh.exec("mocha -c -r test/bootstrap/" + test + " build/" + env + "/test/");
+  sh.exec("mocha -c"
+        + " -r script/test-bootstrap/" + test
+        + " build/" + env + "/test/");
 }
 
 function runCoverageTest () {
@@ -22,9 +24,10 @@ function runCoverageTest () {
 
   sh.exec("BABEL_ENV=" + env
         + " istanbul cover"
+        + " --root src/"
         + " _mocha -- -c"
         + shim
-        + " -r test/bootstrap/src"
+        + " -r script/test-bootstrap/src"
         + " test/");
 
   sh.exec("npm run lint");
@@ -38,7 +41,7 @@ function runSrcTest () {
   sh.exec("BABEL_ENV=" + env
         + " mocha -c "
         + shim
-        + " -r test/bootstrap/src"
+        + " -r script/test-bootstrap/src"
         + " test/");
 
   sh.exec("npm run lint");

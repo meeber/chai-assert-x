@@ -27,7 +27,7 @@ function createBundle (bundle) {
 
   sh.exec("browserify"
         + " -d"
-        + " test/bootstrap/common.js"
+        + " script/test-bootstrap/common.js"
         + " -o bundle/" + bundle + "/test/bootstrap.js");
 
   var testBundleMap = "bundle/" + bundle + "/test/test.js.map";
