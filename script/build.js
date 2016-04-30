@@ -35,11 +35,13 @@ function main () {
         createBuild(builds[i]);
         break;
       case "legacy-shim":
-        sh.cp("script/resource/legacy-shim.js", "build/");
+        sh.cp("script/resource/build-legacy-shim.js", "build/legacy-shim.js");
         break;
       default:
         throw Error("Invalid build: " + builds[i]);
     }
+
+    sh.cp("script/resource/build-index.js", "build/index.js");
 
     sh.echo("*** END BUILD " + builds[i]);
   }
