@@ -3,6 +3,7 @@ var sh = require("shelljs");
 sh.set("-e");
 
 var detectBuild = require("./util/detect-build");
+var foolishrc = require("./util/foolishrc");
 
 function createBuild (build) {
   sh.exec("BABEL_ENV=" + build + " babel"
@@ -47,7 +48,9 @@ function main () {
   }
 
   sh.exec("npm run test " + detectBuild());
-  sh.exec("npm run bundle");
+
+  if (foolishrc.bundle) sh.exec("npm run bundle");
+  else sh.exec("npm run clean bundle");
 }
 
 main();

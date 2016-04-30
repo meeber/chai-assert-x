@@ -1,1 +1,1 @@
-{mainExport: "chaiAssertX", minCurNodeVer: "v6.0.0"}
+{bundle: true, mainExport: "chaiAssertX", minCurNodeVer: "v6.0.0"}
