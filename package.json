@@ -20,10 +20,13 @@
     "bundle": "titor-bundle",
     "clean": "titor-clean",
     "lint": "titor-lint",
-    "postversion": "node script/postversion.js",
-    "preversion": "node script/preversion.js",
-    "release": "node script/release.js",
-    "test": "titor-test"
+    "postversion": "titor-postversion",
+    "preversion": "titor-preversion",
+    "release": "titor-release",
+    "test": "titor-test",
+    "travis": "titor-travis"
   },
-  "dependencies": {}
+  "dependencies": {
+    "titor-util": "^0.1.3"
+  }
 }

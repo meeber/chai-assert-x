@@ -1,1 +1,10 @@
-{bundle: true, mainExport: "chaiAssertX", minCurNodeVer: "v6.0.0"}
+{
+  bundle: true,
+  cover: true,
+  coverReport: true,
+  export: "chaiAssertX",
+  lint: true,
+  minCurNodeVer: "v6.0.0",
+  shimCheck: "Reflect",
+  test: true,
+}
