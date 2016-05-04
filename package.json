@@ -9,11 +9,15 @@
   "engines": {
     "node": ">=0.12.0"
   },
+  "dependencies": {
+    "titor-util": "^0.1.3"
+  },
   "peer-dependencies": {
     "chai": ">=1.9.0"
   },
   "devDependencies": {
-    "eslint-config-tt": "^1.2.0"
+    "eslint-config-tt": "^1.2.0",
+    "titor": "^0.1.0"
   },
   "scripts": {
     "build": "titor-build",
@@ -25,8 +29,5 @@
     "release": "titor-release",
     "test": "titor-test",
     "travis": "titor-travis"
-  },
-  "dependencies": {
-    "titor-util": "^0.1.3"
   }
 }
