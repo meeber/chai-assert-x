@@ -1,9 +1,10 @@
-/* global chai chaiAssertX expect */
+/* global chai chaiAssertX */
 
 chai.use(chaiAssertX);
 
 let assert = chai.assert;
 let assertx = chai.assertx;
+let expect = chai.expect;
 
 describe("assertx", function () {
   it(".fail", function () {

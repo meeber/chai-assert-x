@@ -10,14 +10,14 @@
     "node": ">=0.12.0"
   },
   "dependencies": {
-    "titor-util": "^0.1.3"
+    "semver": "^5.1.0"
   },
   "peer-dependencies": {
     "chai": ">=1.9.0"
   },
   "devDependencies": {
     "eslint-config-tt": "^1.2.0",
-    "titor": "^0.1.0"
+    "titor": "^0.3.0"
   },
   "scripts": {
     "build": "titor-build",
@@ -27,6 +27,7 @@
     "postversion": "titor-postversion",
     "preversion": "titor-preversion",
     "release": "titor-release",
+    "setup": "titor-setup",
     "test": "titor-test",
     "travis": "titor-travis"
   }

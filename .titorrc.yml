@@ -1,0 +1,6 @@
+bundle: true
+cover: true
+coverReport: true
+export: chaiAssertX
+lint: true
+test: true

@@ -1,6 +1,8 @@
-/* global expect */
+/* global chai */
 
 import {createFnWrapper, getArgOrder, getNewActualIndex} from "../src/utils";
+
+let expect = chai.expect;
 
 describe(".createFnWrapper", function () {
   it("if has less than 2 args, should return same fn ref", function () {
